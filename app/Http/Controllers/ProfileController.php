@@ -1,0 +1,68 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
+use Intervention\Image\Facades\Image;
+
+
+class ProfileController extends Controller
+{
+    function index()
+    {
+        return view('admin.profile.index');
+    }
+
+    //    Name Update
+    function nameupdate(Request $request)
+    {
+        User::find(Auth::id())->update([
+            'name' => $request->name,
+        ]);
+        return back()->with('nameupdate', 'Your Name Updated Successfully');
+    }
+
+    // Password Update
+    function passwordupdate(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required',
+            'password' => 'required | confirmed',
+            'password'=> Password::min(8)
+//                ->letters()
+//                ->mixedCase()
+//                ->numbers()
+//                ->symbols()
+        ]);
+        if (Hash::check($request->old_password, Auth::user()->password)){
+          User::find(Auth::id())->update([
+              'password'=>bcrypt($request->password),
+          ]);
+        } else {
+            return back()->with('wrong_old_pass', 'Old Password Does Not Match!');
+        }
+        return back()->with('passwordupdate', 'Your Password Update!');
+    }
+
+    // Photo Update
+    function photoupdate(Request $request){
+        $request->validate([
+            'photo'=>'image',
+            'photo' => 'mimes:jpg,bmp,png',
+            'photo' => 'file|max:1024',
+        ]);
+
+        $new_profile_photo = $request->photo;
+        $extension = $new_profile_photo->getClientOriginalExtension();
+        $photo_name = 'user-'.Auth::id().'_'.date('d-m-Y').'.'.$extension;
+        Image::make($new_profile_photo)->save(base_path('public/uploads/users/'.$photo_name));
+        User::find(Auth::id())->update([
+            'user_photo'=>$photo_name,
+        ]);
+        return back()->with('imageupdate', 'Your Profile Photo Update');
+    }
+}
