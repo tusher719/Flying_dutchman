@@ -12,6 +12,6 @@ class ProductController extends Controller
     }
 
     function addproduct(){
-        return view('admin');
+        return view('admin.product.addproduct');
     }
 }
