@@ -1,5 +1,4 @@
 @extends('layouts.master')
-{{--@extends('layouts.app')--}}
 
 @section('title')
     Category | Flying Dutchman
