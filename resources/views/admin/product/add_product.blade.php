@@ -36,7 +36,7 @@
                         <h3 class="card-title">Add Product</h3>
                     </div>
                     <div class="card-body">
-                        <form action="" method="post" enctype="multipart/form-data">
+                        <form action="{{ url('/product/insert') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">
@@ -64,37 +64,37 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Product Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter product name">
+                                        <input type="text" name="product_name" class="form-control" placeholder="Enter product name">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Product Code</label>
-                                        <input type="text" class="form-control" placeholder="Enter product code">
+                                        <input type="text" name="product_code" class="form-control" placeholder="Enter product code">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Product Quantity</label>
-                                        <input type="number" class="form-control" placeholder="Enter product Quantity">
+                                        <input type="number" name="product_quantity" class="form-control" placeholder="Enter product Quantity">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Product Price</label>
-                                        <input type="text" class="form-control" placeholder="Enter selling price">
+                                        <input type="text" name="product_price" class="form-control" placeholder="Enter selling price">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">Product Description</label>
-                                        <textarea name="shor_desp" class="form-control" placeholder="Enter description...."></textarea>
+                                        <textarea name="product_desp" class="form-control" placeholder="Enter description...."></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">Main Thambnail</label>
-                                        <input type="file" class="form-control">
+                                        <input type="file" name="main_img" class="form-control">
                                     </div>
                                 </div>
                             </div>

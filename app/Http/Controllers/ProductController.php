@@ -23,6 +23,7 @@ class ProductController extends Controller
     }
 
     function insert(Request $request){
+        print_r($request->all());
 
     }
 }
