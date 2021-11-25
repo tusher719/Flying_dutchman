@@ -16,7 +16,7 @@
 @section('pageTitle')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0">Category</h1>
+            <h3 class="m-0">Category</h3>
         </div><!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">

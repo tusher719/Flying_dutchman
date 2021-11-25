@@ -5,6 +5,7 @@ use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +37,7 @@ Route::get('/category/restore/{category_id}', [CategoryController::class, 'resto
 Route::post('/category/permanent/delete/{category_id}', [CategoryController::class, 'perdelete']);
 Route::post('/mark/delete', [CategoryController::class, 'mark_delete']);
 
-//subcategory
+//Subcategory
 Route::get('/subcategory', [SubcategoryController::class, 'index'])->name('index');
 Route::post('/subcategory/insert', [SubcategoryController::class, 'insert'])->name('insert');
 Route::post('/subcategory/delete/{subcategory_id}', [SubcategoryController::class, 'delete']);
@@ -48,3 +49,6 @@ Route::get('/profile', [ProfileController::class, 'index']);
 Route::post('/name/update', [ProfileController::class, 'nameupdate']);
 Route::post('/password/update', [ProfileController::class, 'passwordupdate']);
 Route::post('/photo/update', [ProfileController::class, 'photoupdate']);
+
+//Product
+Route::get('/addproduct', [ProductController::class, 'addproduct']);

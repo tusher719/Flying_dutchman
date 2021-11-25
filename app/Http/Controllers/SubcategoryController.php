@@ -13,9 +13,14 @@ class SubcategoryController extends Controller
 {
     function index()
     {
+        $total_subcategory = SubCategory::count();
         $categories = Category::orderBy('category_name')->get();
         $subcategories = SubCategory::orderBy('subcategory_name')->get();
-        return view('admin.subcategory.index', compact('categories', 'subcategories'));
+        return view('admin.subcategory.index',([
+            'categories'=>$categories,
+            'subcategories'=>$subcategories,
+            'total_subcategory'=>$total_subcategory,
+        ]));
     }
     function insert(Request $request)
     {
@@ -32,10 +37,8 @@ class SubcategoryController extends Controller
                 'added_by' => Auth::id(),
                 'created_at' => Carbon::now(),
             ]);
-            Toastr::success('Messages in here', 'Title', ["positionClass" => "toast-top-center"]);
-//            return back()->with('success', 'SubCategory Added Successfully');
-//            return back();
-            return view('insert')
+//            Toastr::success('Messages in here', 'Title', ["positionClass" => "toast-top-center"]);
+            return back()->with('success', 'SubCategory Added Successfully');
         }
     }
 

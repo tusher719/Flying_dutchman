@@ -18,7 +18,7 @@
 @section('pageTitle')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0">SubCategory</h1>
+            <h3 class="m-0">SubCategory</h3>
         </div><!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -33,12 +33,12 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-9 connectedSortable">
-                <div class="card card-primary">
+            <div class="col-md-10  m-auto connectedSortable">
+                <div class="card card-outline card-success">
                     <div class="card-header">
                         <h3 class="card-title">
                             <i class="fas fa-list-ul"></i>
-                            SubCategory List
+                            SubCategory List <span class="badge badge-info">{{ $total_subcategory }}</span>
                         </h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -48,25 +48,30 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <div class="mb-1">
-                            <!-- Check all button -->
-                            <button type="button" class="btn btn-outline-primary btn-sm checkbox-toggle" data-toggle="tooltip" data-placement="top" title="Mark All Data">
-                                <i class="far fa-square"></i>
-                            </button>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Mark Data Delete">
-                                    <i class="far fa-trash-alt"></i>
+                        <div class="d-flex justify-content-between mb-1">
+                            <div class="mb-1">
+                                <!-- Check all button -->
+                                <button type="button" class="btn btn-outline-primary btn-sm checkbox-toggle" data-toggle="tooltip" data-placement="top" title="Mark All Data">
+                                    <i class="far fa-square"></i>
                                 </button>
-                                <button type="button" class="btn btn-outline-info btn-sm">
-                                    <i class="fas fa-reply"></i>
-                                </button>
-                                <button type="button" class="btn btn-outline-info btn-sm">
-                                    <i class="fas fa-share"></i>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Mark Data Delete">
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-info btn-sm">
+                                        <i class="fas fa-reply"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-info btn-sm">
+                                        <i class="fas fa-share"></i>
+                                    </button>
+                                </div>
+                                <!-- /.btn-group -->
+                                <button type="button" class="btn btn-outline-success btn-sm">
+                                    <i class="fas fa-sync-alt"></i>
                                 </button>
                             </div>
-                            <!-- /.btn-group -->
-                            <button type="button" class="btn btn-outline-success btn-sm">
-                                <i class="fas fa-sync-alt"></i>
+                            <button type="button" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#modal-default">
+                                <i class="fas fa-plus"></i> Add
                             </button>
                         </div>
                         <div class="table-responsive mailbox-messages">
@@ -123,54 +128,54 @@
                     <!-- /.card-body -->
                 </div>
             </div>
-            <div class="col-md-3 connectedSortable">
-                <div class="card card-info">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            <i class="far fa-plus-square"></i>
-                            Add Subcategory
-                        </h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                <i class="fas fa-minus"></i>
+
+            {{-- Add Modal --}}
+            <div class="modal fade " id="modal-default">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add SubCategory</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                    </div>
+                        <div class="modal-body">
+                            <form action="{{ url('/subcategory/insert') }}" method="POST">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="">Category List</label>
+                                    <select name="category_id" class="form-control">
+                                        <option value="">Select Cetegory</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('category_id')
+                                    <small class="btn text-danger text-sm">
+                                        {{ $message }}
+                                    </small>
+                                    @enderror
 
-                    <div class="card-body">
-                        <form action="{{ url('/subcategory/insert') }}" method="POST">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="">Category List</label>
-                                <select name="category_id" class="form-control">
-                                    <option value="">Select Cetegory</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->category_name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('category_id')
-                                <small class="btn text-danger text-sm">
-                                    {{ $message }}
-                                </small>
-                                @enderror
-
-                            </div>
-                            <div class="mb-3">
-                                <label>Subcategory Name</label>
-                                <input type="text" name="subcategory_name" class="form-control"
-                                       placeholder="Enter Subcategory name">
-                                @error('subcategory_name')
-                                <small class="btn text-danger text-sm">
-                                    {{ $message }}
-                                </small>
-                                @enderror
-                            </div>
-                            <div class="mb-3">
-                                <button type="submit" class="btn btn-outline-info">Add Subcategory</button>
-                            </div>
-                        </form>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Subcategory Name</label>
+                                    <input type="text" name="subcategory_name" class="form-control"
+                                           placeholder="Enter Subcategory name">
+                                    @error('subcategory_name')
+                                    <small class="btn text-danger text-sm">
+                                        {{ $message }}
+                                    </small>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <button type="submit" class="btn btn-outline-info">Add Subcategory</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
+                    <!-- /.modal-content -->
                 </div>
+                <!-- /.modal-dialog -->
             </div>
         </div>
     </div>
@@ -179,130 +184,128 @@
 
 
 
-
-
     {!! Toastr::message() !!}
 @endsection
 
-{{--@section('footer_script')--}}
-{{--    <script>--}}
-{{--        --}}{{-- Success Function --}}
-{{--        @if (session('success'))--}}
-{{--        const Toast = Swal.mixin({--}}
-{{--            toast: true,--}}
-{{--            position: 'top-end',--}}
-{{--            showConfirmButton: false,--}}
-{{--            timer: 3000,--}}
-{{--            timerProgressBar: true,--}}
-{{--            didOpen: (toast) => {--}}
-{{--                toast.addEventListener('mouseenter', Swal.stopTimer)--}}
-{{--                toast.addEventListener('mouseleave', Swal.resumeTimer)--}}
-{{--                }--}}
-{{--            })--}}
-{{--        Toast.fire({--}}
-{{--            icon: 'success',--}}
-{{--            title: '{{ session('success') }}'--}}
-{{--        })--}}
-{{--        @endif--}}
+@section('footer_script')
+    <script>
+         // Success Function
+        @if (session('success'))
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+        Toast.fire({
+            icon: 'success',
+            title: '{{ session('success') }}'
+        })
+        @endif
 
-{{--        --}}{{-- Update Function --}}
-{{--        @if (session('update'))--}}
-{{--            const Toast = Swal.mixin({--}}
-{{--                toast: true,--}}
-{{--                position: 'top-end',--}}
-{{--                showConfirmButton: false,--}}
-{{--                timer: 3000,--}}
-{{--                timerProgressBar: true,--}}
-{{--                didOpen: (toast) => {--}}
-{{--                    toast.addEventListener('mouseenter', Swal.stopTimer)--}}
-{{--                    toast.addEventListener('mouseleave', Swal.resumeTimer)--}}
-{{--                }--}}
-{{--            })--}}
+         // Update Function
+        @if (session('update'))
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
 
-{{--            Toast.fire({--}}
-{{--                icon: 'success',--}}
-{{--                title: '{{ session('update') }}'--}}
-{{--            })--}}
-{{--        @endif--}}
+            Toast.fire({
+                icon: 'success',
+                title: '{{ session('update') }}'
+            })
+        @endif
 
-{{--        --}}{{-- Already Exist Function --}}
-{{--        @if (session('exist_subcategory'))--}}
-{{--            const Toast = Swal.mixin({--}}
-{{--                toast: true,--}}
-{{--                position: 'top-end',--}}
-{{--                showConfirmButton: false,--}}
-{{--                timer: 3000,--}}
-{{--                timerProgressBar: true,--}}
-{{--                didOpen: (toast) => {--}}
-{{--                    toast.addEventListener('mouseenter', Swal.stopTimer)--}}
-{{--                    toast.addEventListener('mouseleave', Swal.resumeTimer)--}}
-{{--                }--}}
-{{--            })--}}
+         // Already Exist Function
+        @if (session('exist_subcategory'))
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
 
-{{--            Toast.fire({--}}
-{{--                icon: 'error',--}}
-{{--                title: '{{ session('exist_subcategory') }}'--}}
-{{--            })--}}
-{{--        @endif--}}
+            Toast.fire({
+                icon: 'error',
+                title: '{{ session('exist_subcategory') }}'
+            })
+        @endif
 
 
-{{--        --}}{{-- Delete Function --}}
-{{--        function deleteCategory(id) {--}}
-{{--            const swalWithBootstrapButtons = Swal.mixin({--}}
-{{--                customClass: {--}}
-{{--                    confirmButton: 'btn btn-success',--}}
-{{--                    cancelButton: 'btn btn-danger'--}}
-{{--                },--}}
-{{--                buttonsStyling: false--}}
-{{--            })--}}
+         // Delete Function
+        function deleteCategory(id) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
 
-{{--            swalWithBootstrapButtons.fire({--}}
-{{--                title: 'Are you sure?',--}}
-{{--                text: "This will be delete permanently!",--}}
-{{--                icon: 'warning',--}}
-{{--                showCancelButton: true,--}}
-{{--                confirmButtonText: 'Yes, delete it!',--}}
-{{--                cancelButtonText: 'No, cancel!',--}}
-{{--                reverseButtons: true--}}
-{{--            }).then((result) => {--}}
-{{--                if (result.isConfirmed) {--}}
-{{--                    swalWithBootstrapButtons.fire(--}}
-{{--                        'Deleted!',--}}
-{{--                        'SubCategory Deleted Successfully',--}}
-{{--                        'success'--}}
-{{--                    )--}}
-{{--                    event.preventDefault();--}}
-{{--                    document.getElementById('delete-data-' + id).submit();--}}
-{{--                } else if (--}}
-{{--                    /* Read more about handling dismissals below */--}}
-{{--                    result.dismiss === Swal.DismissReason.cancel--}}
-{{--                ) {--}}
-{{--                    swalWithBootstrapButtons.fire(--}}
-{{--                        'Cancelled',--}}
-{{--                        'Your SubCategory is safe :)',--}}
-{{--                        'error'--}}
-{{--                    )--}}
-{{--                }--}}
-{{--            })--}}
-{{--        }--}}
-{{--        --}}{{-- Delete Function --}}
-{{--        @if (session('delete'))--}}
-{{--            const Toast = Swal.mixin({--}}
-{{--                toast: true,--}}
-{{--                position: 'top-end',--}}
-{{--                showConfirmButton: false,--}}
-{{--                timer: 3000,--}}
-{{--                timerProgressBar: true,--}}
-{{--                didOpen: (toast) => {--}}
-{{--                    toast.addEventListener('mouseenter', Swal.stopTimer)--}}
-{{--                    toast.addEventListener('mouseleave', Swal.resumeTimer)--}}
-{{--                }--}}
-{{--            })--}}
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "This will be delete permanently!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    swalWithBootstrapButtons.fire(
+                        'Deleted!',
+                        'SubCategory Deleted Successfully',
+                        'success'
+                    )
+                    event.preventDefault();
+                    document.getElementById('delete-data-' + id).submit();
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Your SubCategory is safe :)',
+                        'error'
+                    )
+                }
+            })
+        }
+         // Delete Function
+        @if (session('delete'))
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
 
-{{--            Toast.fire({--}}
-{{--                icon: 'success',--}}
-{{--                title: '{{ session('delete') }}'--}}
-{{--            })--}}
-{{--        @endif--}}
-{{--    </script>--}}
-{{--@endsection--}}
+            Toast.fire({
+                icon: 'success',
+                title: '{{ session('delete') }}'
+            })
+        @endif
+    </script>
+@endsection
