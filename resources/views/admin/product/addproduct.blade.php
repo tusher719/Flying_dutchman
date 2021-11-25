@@ -4,7 +4,7 @@
     Add-Product | Flying Dutchman
 @endsection
 
-@section('addproduct')
+@section('addProduct')
     active
 @endsection
 @section('tree_product_menu')
