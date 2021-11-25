@@ -97,7 +97,7 @@
                 </li>
 
                 <li class="nav-item @yield('tree_product_menu')">
-                    <a href="#" class="nav-link  @yield('addProduct') @yield('subcategory')">
+                    <a href="#" class="nav-link  @yield('productAdd') @yield('productManage')">
                         <i class="nav-icon fas fa-layer-group"></i>
                         <p>
                             Product
@@ -107,13 +107,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{url('/addproduct')}}" class="nav-link @yield('addProduct')">
+                            <a href="{{url('/product/add')}}" class="nav-link @yield('productAdd')">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>Add Product</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('/subcategory')}}" class="nav-link @yield('subcategory')">
+                            <a href="{{url('/subcategory')}}" class="nav-link @yield('productManage')">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>Manage Product</p>
                             </a>

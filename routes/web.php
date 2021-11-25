@@ -51,4 +51,5 @@ Route::post('/password/update', [ProfileController::class, 'passwordupdate']);
 Route::post('/photo/update', [ProfileController::class, 'photoupdate']);
 
 //Product
-Route::get('/addproduct', [ProductController::class, 'addproduct']);
+Route::get('/product/add', [ProductController::class, 'index']);
+Route::post('/product/insert', [ProductController::class, 'insert']);
