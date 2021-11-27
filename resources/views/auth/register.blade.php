@@ -35,7 +35,7 @@
     <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
     <meta name="author" content="ThemePixels">
 
-    <title>Starlight Responsive Bootstrap 4 Admin Template</title>
+    <title>Admin Register</title>
 
     <!-- vendor css -->
     <link href="{{ asset('deshboardRegister') }}/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -52,7 +52,7 @@
 <div class="d-flex align-items-center justify-content-center bg-sl-primary ht-md-100v">
 
     <div class="login-wrapper wd-300 wd-xs-400 pd-25 pd-xs-40 bg-white">
-        <div class="signin-logo tx-center tx-24 tx-bold tx-inverse">Register <span class="tx-info tx-normal">admin</span></div>
+        <div class="signin-logo tx-center tx-24 tx-bold tx-inverse">Register <span class="tx-info tx-normal">Admin</span></div>
 
         <form method="POST" action="{{ route('register') }}">
             @csrf

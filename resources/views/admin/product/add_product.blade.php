@@ -94,7 +94,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">Main Thambnail</label>
-                                        <input type="file" name="main_img" class="form-control">
+                                        <input type="file" name="product_thambnail" class="form-control">
                                     </div>
                                 </div>
                             </div>

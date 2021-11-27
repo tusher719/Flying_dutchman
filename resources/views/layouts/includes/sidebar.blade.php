@@ -84,13 +84,19 @@
                         <li class="nav-item">
                             <a href="{{url('/category')}}" class="nav-link @yield('category')">
                                 <i class="far fa-dot-circle nav-icon"></i>
-                                <p>Main Category</p>
+                                <p>
+                                    Main Category
+{{--                                    <span class="badge badge-info right">{{ $total_category }}</span>--}}
+                                </p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{url('/subcategory')}}" class="nav-link @yield('subcategory')">
                                 <i class="far fa-dot-circle nav-icon"></i>
-                                <p>Sub-Category</p>
+                                <p>
+                                    Sub-Category
+{{--                                    <span class="badge badge-danger right">{{ $total_subcategory }}</span>--}}
+                                </p>
                             </a>
                         </li>
                     </ul>
