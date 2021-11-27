@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->integer('product_quantity');
             $table->integer('product_price');
             $table->longText('product_desp');
-            $table->string('product_thambnail');
+            $table->string('product_thumbnail');
             $table->timestamps();
         });
     }

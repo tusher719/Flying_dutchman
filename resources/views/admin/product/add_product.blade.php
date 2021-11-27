@@ -94,7 +94,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">Main Thambnail</label>
-                                        <input type="file" name="product_thambnail" class="form-control">
+                                        <input type="file" name="product_thumbnail" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -107,4 +107,26 @@
             </div>
         </div>
     </div>
+@endsection
+@section('footer_script')
+    <script>
+        @if (session('add_product'))
+        const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+        Toast.fire({
+            icon: 'success',
+            title: '{{ session('add_product') }}'
+        })
+        @endif
+    </script>
 @endsection

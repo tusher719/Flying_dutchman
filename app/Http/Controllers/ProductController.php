@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubCategory;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
@@ -24,7 +26,7 @@ class ProductController extends Controller
     }
 
     function insert(Request $request){
-        Product::insert([
+        $product_id = Product::insertGetId([
            'category_id'=>$request->category_id,
            'subcategory_id'=>$request->subcategory_id,
            'product_name'=>$request->product_name,
@@ -32,7 +34,18 @@ class ProductController extends Controller
            'product_quantity'=>$request->product_quantity,
            'product_price'=>$request->product_price,
            'product_desp'=>$request->product_desp,
+           'created_at'=>Carbon::now(),
         ]);
+
+        $new_product_photo = $request->product_thumbnail;
+        $extension = $new_product_photo->getClientOriginalExtension();
+        $product_name = 'product-'.$product_id.'_'.date('d-m-Y').'.'.$extension;
+
+        Image::make($new_product_photo)->save(base_path('public/uploads/product/'.$product_name));
+        Product::find($product_id)->update([
+            'product_thumbnail'=>$product_name,
+        ]);
+        return back()->with('add_product', 'Product Added Successfully');
 
     }
 }
