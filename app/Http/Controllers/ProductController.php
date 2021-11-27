@@ -48,8 +48,11 @@ class ProductController extends Controller
         return back()->with('add_product', 'Product Added Successfully');
     }
 
-
+    // All-Product Function
     function allproduct(){
-        return view('admin.product.manage_product');
+        $all_products = Product::latest()->get();
+        return view('admin.product.all_product', [
+            'all_products'=>$all_products,
+        ]);
     }
 }
