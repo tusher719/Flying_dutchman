@@ -119,7 +119,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('/subcategory')}}" class="nav-link @yield('productManage')">
+                            <a href="{{url('/product/all')}}" class="nav-link @yield('productManage')">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>Manage Product</p>
                             </a>

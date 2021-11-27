@@ -53,3 +53,4 @@ Route::post('/photo/update', [ProfileController::class, 'photoupdate']);
 //Product
 Route::get('/product/add', [ProductController::class, 'index']);
 Route::post('/product/insert', [ProductController::class, 'insert']);
+Route::get('/product/all', [ProductController::class, 'alproduct']);

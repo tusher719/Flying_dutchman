@@ -46,6 +46,10 @@ class ProductController extends Controller
             'product_thumbnail'=>$product_name,
         ]);
         return back()->with('add_product', 'Product Added Successfully');
+    }
 
+
+    function allproduct(){
+        return view('admin.product.manage_product');
     }
 }
