@@ -42,20 +42,20 @@ class SubcategoryController extends Controller
         }
     }
 
-
+    // Delete
     function delete($subcategory_id){
         SubCategory::find($subcategory_id)->delete();
         return back()->with('delete','SubCategory Deleted Successfully :)');
     }
 
-
+    //Edit
     function edit($subcategory_id){
         $categories = Category::orderBy('category_name')->get();
         $subcategories = SubCategory::find($subcategory_id);
         return view('admin.subcategory.edit', compact('subcategories', 'categories'));
     }
 
-
+    // Update
     function update(Request $request){
         SubCategory::find($request->subcategory_id)->update([
             'category_id'=>$request->category_id,
