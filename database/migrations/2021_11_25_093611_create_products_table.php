@@ -21,6 +21,8 @@ class CreateProductsTable extends Migration
             $table->integer('product_code');
             $table->integer('product_quantity');
             $table->integer('product_price');
+            $table->integer('discount_percentage');
+            $table->integer('discount_price');
             $table->longText('product_desp');
             $table->string('product_thumbnail');
             $table->timestamps();

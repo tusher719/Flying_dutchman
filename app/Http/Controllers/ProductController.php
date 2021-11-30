@@ -26,6 +26,7 @@ class ProductController extends Controller
     }
 
     function insert(Request $request){
+        $discount = ($request->product_price / 100) * $request->discount_percentage;
         $product_id = Product::insertGetId([
            'category_id'=>$request->category_id,
            'subcategory_id'=>$request->subcategory_id,
@@ -33,6 +34,8 @@ class ProductController extends Controller
            'product_code'=>$request->product_code,
            'product_quantity'=>$request->product_quantity,
            'product_price'=>$request->product_price,
+           'discount_percentage'=>$request->discount_percentage,
+           'discount_price'=>$request->product_price - $discount,
            'product_desp'=>$request->product_desp,
            'created_at'=>Carbon::now(),
         ]);

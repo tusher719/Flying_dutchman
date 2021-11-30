@@ -63,12 +63,14 @@
                                 <tr>
                                     <th>#</th>
                                     <th>SL</th>
-                                    <th>Category Name</th>
-                                    <th>SubCategory Name</th>
+                                    <th>Category</th>
+                                    <th>SubCategory</th>
                                     <th>Name</th>
                                     <th>Code</th>
                                     <th>Quantity</th>
-                                    <th>Price</th>
+                                    <th>Regular Price</th>
+                                    <th>Discount Percentage</th>
+                                    <th>Discount Price</th>
                                     <th>Description</th>
                                     <th>Thumbnail</th>
                                     <th>Created_at</th>
@@ -92,6 +94,14 @@
                                         <td>{{ $products->product_code }}</td>
                                         <td>{{ $products->product_quantity }}</td>
                                         <td>{{ $products->product_price }}</td>
+                                        <td>
+                                            @if( $products->discount_percentage )
+                                                {{ $products->discount_percentage }} %
+                                                @else
+                                                    <span style="color: #ff0000"> N/A </span>
+                                            @endif
+                                        </td>
+                                        <td>{{ $products->discount_price }}</td>
                                         <td>{{ $products->product_desp }}</td>
                                         <td>
                                             <img width="80px" src="{{ asset('/uploads/product') }}/{{ $products->product_thumbnail }}" alt="">

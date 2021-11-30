@@ -85,6 +85,12 @@
                                         <input type="text" name="product_price" class="form-control" placeholder="Enter selling price">
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Discount Percentage</label>
+                                        <input type="text" name="discount_percentage" class="form-control" placeholder="Enter selling price">
+                                    </div>
+                                </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">Product Description</label>
