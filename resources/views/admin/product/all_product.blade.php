@@ -19,8 +19,8 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{url('/home')}}">Home</a></li>
-                <li class="breadcrumb-item active">All- Product</li>
+                <li class="breadcrumb-item"><a href="{{url('/home')}}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Manage-Product</li>
             </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
@@ -35,7 +35,8 @@
                         <h3 CLASS="card-title">All Product</h3>
                     </div>
                     <div class="card-body">
-                            <div class="mb-1">
+                        <form>
+                        <div class="mb-1">
                                 <!-- Check all button -->
                                 <button type="button" class="btn btn-outline-primary btn-sm checkbox-toggle" data-toggle="tooltip" data-placement="top" title="Mark All Data">
                                     <i class="far fa-square"></i>
@@ -118,6 +119,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>

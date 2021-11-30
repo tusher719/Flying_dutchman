@@ -6,7 +6,7 @@
                     class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{url('/home')}}" class="nav-link">Home</a>
+            <a href="{{url('/home')}}" class="nav-link">Dashboard</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{url('/user')}}" class="nav-link">User</a>
