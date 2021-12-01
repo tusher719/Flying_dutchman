@@ -34,7 +34,7 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+            <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu"
                 data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
@@ -83,7 +83,7 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{url('/category')}}" class="nav-link @yield('category')">
-                                <i class="far fa-dot-circle nav-icon"></i>
+                                <i class="fas fa-angle-right nav-icon"></i>
                                 <p>
                                     Main Category
 {{--                                    <span class="badge badge-info right">{{ $total_category }}</span>--}}
@@ -92,7 +92,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{url('/subcategory')}}" class="nav-link @yield('subcategory')">
-                                <i class="far fa-dot-circle nav-icon"></i>
+                                <i class="fas fa-angle-right nav-icon"></i>
                                 <p>
                                     Sub-Category
 {{--                                    <span class="badge badge-danger right">{{ $total_subcategory }}</span>--}}
@@ -114,13 +114,13 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{url('/product/add')}}" class="nav-link @yield('productAdd')">
-                                <i class="far fa-dot-circle nav-icon"></i>
+                                <i class="fas fa-angle-right nav-icon"></i>
                                 <p>Add Product</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{url('/product/all')}}" class="nav-link @yield('productManage')">
-                                <i class="far fa-dot-circle nav-icon"></i>
+                                <i class="fas fa-angle-right nav-icon"></i>
                                 <p>Manage Product</p>
                             </a>
                         </li>

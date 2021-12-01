@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="{{ asset('dashboard') }}/plugins/toastr/toastr.min.css">
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed dark-mode sidebar-collapse">
     <div class="wrapper">
 
         <!-- Preloader -->

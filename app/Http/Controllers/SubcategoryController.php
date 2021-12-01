@@ -57,12 +57,17 @@ class SubcategoryController extends Controller
 
     // Update
     function update(Request $request){
-        SubCategory::find($request->subcategory_id)->update([
-            'category_id'=>$request->category_id,
-            'subcategory_name'=>$request->subcategory_name,
-            'added_by'=>Auth::id(),
-            'updated_at'=>Carbon::now(),
-        ]);
-        return redirect()->route('index')->with('update','SubCategory Update Successfully!');
+        if (SubCategory::find($request->subcategory_id)->where('category_id', $request->category_id)->exists()){
+            return redirect()->route('index')->with('success','SubCategory & Category Already Exists!');
+
+        } else{
+            SubCategory::find($request->subcategory_id)->update([
+                'category_id'=>$request->category_id,
+                'subcategory_name'=>$request->subcategory_name,
+                'added_by'=>Auth::id(),
+                'updated_at'=>Carbon::now(),
+            ]);
+            return redirect()->route('index')->with('update','SubCategory Update Successfully!');
+        }
     }
 }

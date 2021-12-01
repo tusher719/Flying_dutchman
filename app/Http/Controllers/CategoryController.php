@@ -19,10 +19,12 @@ class CategoryController extends Controller
     function index()
     {
         $total_category = Category::count();
+        $trash_count = Category::onlyTrashed()->count();
         $categories = Category::orderBy('category_name')->get();
-        $trash_categories = Category::orderBy('category_name')->onlyTrashed()->get();
+        $trash_categories = Category::onlyTrashed()->orderBy('category_name')->get();
         return view('admin.category.index', [
             'categories'=>$categories,
+            'trash_count' => $trash_count,
             'trash_categories'=>$trash_categories,
             'total_category'=>$total_category,
         ]);

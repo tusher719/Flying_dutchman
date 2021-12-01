@@ -32,7 +32,7 @@
         <div class="row">
 
             <div class="col-md-10 m-auto connectedSortable">
-                <div class="card card-outline card-primary">
+                <div class="card card-primary">
                     <div class="card-header">
                         <h3 class="card-title">
                             <i class="fas fa-layer-group"></i>
@@ -82,6 +82,7 @@
                                         <th>#</th>
                                         <th>SL</th>
                                         <th>Category Name</th>
+                                        <th>Category Image</th>
                                         <th>Added By</th>
                                         <th>Created_at</th>
                                         <th>Action</th>
@@ -99,6 +100,9 @@
                                             {{--                                        <td>{{ $categories->firstItem() + $index }}</td>--}}
                                             <td>{{ $loop->index+1 }}</td>
                                             <td>{{ $category->category_name }}</td>
+                                            <td>
+                                                <img style="width: 120px;" src="{{ asset('uploads/category')}}/{{ $category->category_image }}" alt="">
+                                            </td>
                                             <td>{{ App\Models\User::find($category->added_by)->name }}</td>
                                             <td>{{ $category->created_at->diffForHumans() }}</td>
                                             <td>
@@ -173,6 +177,7 @@
                                     <th>#</th>
                                     <th>SL</th>
                                     <th>Category Name</th>
+                                    <th>Category Image</th>
                                     <th>Added By</th>
                                     <th>Created_at</th>
                                     <th>Action</th>
@@ -189,6 +194,9 @@
                                         </td>
                                         <td>{{ $loop->index+1 }}</td>
                                         <td>{{ $trash_category->category_name }}</td>
+                                        <td>
+                                            <img style="width: 120px;" src="{{ asset('uploads/category')}}/{{ $trash_category->category_image }}" alt="">
+                                        </td>
                                         <td>{{ App\Models\User::find($trash_category->added_by)->name }}</td>
                                         <td>{{ $trash_category->created_at->diffForHumans() }}</td>
                                         <td>
