@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Home | Flying Dutchman
+    Profile
 @endsection
 
 {{--Page Title--}}
@@ -62,7 +62,7 @@
                             @csrf
                             <div class="form-group">
                                 <label for="">Old Password</label>
-                                <input type="password" name="old_password" class="form-control" placeholder="Enter old password">
+                                <input type="password" name="old_password" class="form-control border-info" placeholder="Enter old password">
                                 @if(session('wrong_old_pass'))
                                     <small class="text-danger text-sm">
                                         {{ session('wrong_old_pass') }}
@@ -77,7 +77,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">New Password</label>
-                                <input type="password" name="password" class="form-control" placeholder="Enter new password">
+                                <input type="password" name="password" class="form-control border-info" placeholder="Enter new password">
                                 @error('password')
                                 <small class="text-danger text-sm">
                                     {{ $message }}
@@ -86,7 +86,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Confirm Password</label>
-                                <input type="password" name="password_confirmation" class="form-control" placeholder="Enter confirm password">
+                                <input type="password" name="password_confirmation" class="form-control border-info" placeholder="Enter confirm password">
                                 @error('password_confirmation')
                                 <small class="text-danger text-sm">
                                     {{ $message }}

@@ -23,7 +23,7 @@ class ProfileController extends Controller
         return view('admin.profile.index');
     }
 
-    //    Name Update
+    // Name Update
     function nameupdate(Request $request)
     {
         User::find(Auth::id())->update([
@@ -72,4 +72,5 @@ class ProfileController extends Controller
         ]);
         return back()->with('imageupdate', 'Your Profile Photo Update');
     }
+
 }

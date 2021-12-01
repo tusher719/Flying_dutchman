@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="{{ asset('dashboard') }}/dist/img/AdminLTELogo.png">
-    <title>@yield('title')</title>
+    <link rel="icon" href="{{asset('uploads/brand/'.$brand[0]->brand_img)}}">
+    <title>@yield('title') | {{ $brand[0]->brand_name }}</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"

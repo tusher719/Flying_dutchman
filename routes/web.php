@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,3 +59,8 @@ Route::post('/photo/update', [ProfileController::class, 'photoupdate']);
 Route::get('/product/add', [ProductController::class, 'index']);
 Route::post('/product/insert', [ProductController::class, 'insert']);
 Route::get('/product/all', [ProductController::class, 'allproduct']);
+
+
+// Brand
+Route::get('/brand', [BrandController::class, 'index']);
+Route::post('/brandUpdate', [BrandController::class, 'BrandUpdate']);
