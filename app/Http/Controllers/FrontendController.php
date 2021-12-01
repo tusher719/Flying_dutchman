@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class FrontendController extends Controller
 {
     public function welcome(){
-        $categories = Category::orderBy('category_name')->limit(6)->get();
+        $categories = Category::orderBy('category_name')->get();
         $products = Product::latest()->get();
         return view('frontend.index', [
             'categories' => $categories,

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class CategoryController extends Controller
 {
@@ -33,15 +34,24 @@ class CategoryController extends Controller
         $request->validate([
             'category_name' => 'required | unique:categories',
         ], [
-            'category_name.required' => 'Category nam koi!',
+            'category_name.required' => 'Please Input Select Name!',
             'category_name.unique' => 'This category-name already exists!',
         ]);
 
-        Category::insert([
+        $category_id = Category::insertGetId([
             'category_name' => $request->category_name,
             'added_by' => Auth::id(),
             'created_at' => Carbon::now(),
         ]);
+        $new_category_photo = $request->category_image;
+        $extension = $new_category_photo->getClientOriginalExtension();
+        $category_name = 'category-'.$category_id.'_'.date('d-m-Y').'.'.$extension;
+
+        Image::make($new_category_photo)->save(base_path('public/uploads/category/'.$category_name));
+        Category::find($category_id)->update([
+            'category_image'=>$category_name,
+        ]);
+
         return back()->with('success', 'Category Added Successfully :)');
     }
 
@@ -59,7 +69,7 @@ class CategoryController extends Controller
         return view('admin.category.edit', compact('category_info'));
     }
 
-    //    Update funcion
+    //    Update function
     function update(Request $request)
     {
         Category::find($request->category_id)->update([

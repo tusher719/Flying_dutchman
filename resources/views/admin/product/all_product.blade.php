@@ -69,8 +69,8 @@
                                     <th>Code</th>
                                     <th>Quantity</th>
                                     <th>Regular Price</th>
-                                    <th>Discount Percentage</th>
-                                    <th>Discount Price</th>
+                                    <th>Discount</th>
+                                    <th>Dis Price</th>
                                     <th>Description</th>
                                     <th>Thumbnail</th>
                                     <th>Created_at</th>

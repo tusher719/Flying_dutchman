@@ -127,6 +127,9 @@
                     <!-- /.card-body -->
                 </div>
             </div>
+
+
+            {{-- Trash Category --}}
             <div class="col-md-10 m-auto connectedSortable">
                 <div class="card card-danger mt-3">
                     <div class="card-header">
@@ -224,7 +227,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ url('/category/insert') }}" method="POST">
+                            <form action="{{ url('/category/insert') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="input-div mt-2">
                                     <div class="div">
@@ -237,6 +240,15 @@
                                         </small>
                                         @enderror
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Category Image</label>
+                                    <input type="file" name="category_image" class="form-control">
+                                    @error('category_image')
+                                    <small class="btn text-danger text-sm mt-5">
+                                        {{ $message }}
+                                    </small>
+                                    @enderror
                                 </div>
                                 <div class="mt-3 text-center">
                                     <button type="submit" class="btn btn-outline-info">Add Category</button>
@@ -306,7 +318,7 @@
         })
         @endif
 
-         Permanently Delete Function
+         // Permanently Delete Function
         function deleteCategory(id) {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
