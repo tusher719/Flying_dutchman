@@ -22,6 +22,57 @@
 @section('content')
     <div class="container">
         <div class="row">
+
+            <div class="col-lg-4 connectedSortable">
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">Brand Name</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ url('/brand/Name') }}" method="post">
+                            @csrf
+                            <div class="form-group">
+                                <label for="">Name</label>
+                                <input type="text" name="brand_name" value="{{ $brand[0]->brand_name }}" class="form-control" placeholder="Enter name">
+                            </div>
+                            <div class="form-group text-center">
+                                <button class="btn btn-outline-success">Name Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">Brand Footer</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ url('/brandUpdate') }}" method="post">
+                            @csrf
+                            <div class="form-group">
+                                <label for="">Footer</label>
+                                <input type="text" name="footer" class="form-control" placeholder="Enter footer name">
+                            </div>
+                            <div class="form-group text-center">
+                                <button class="btn btn-outline-success">Footer Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
                 <div class="col-lg-4 connectedSortable">
                     <div class="card card-info">
                         <div class="card-header">
@@ -48,11 +99,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group text-center">
-                                    <label for="">Brand Name</label>
-                                    <input type="text" value="{{ $brand[0]->brand_name }}" name="brand_name" class="form-control" placeholder="Enter name">
-                                </div>
-                                <div class="form-group text-center">
-                                    <button class="btn btn-outline-success">Update</button>
+                                    <button class="btn btn-outline-success">Photo Update</button>
                                 </div>
                             </form>
                         </div>
@@ -62,32 +109,7 @@
                 <div class="col-lg-4 connectedSortable">
                     <div class="card card-info">
                         <div class="card-header">
-                            <h3 class="card-title">Brand Image</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <form action="{{ url('/brandUpdate') }}" method="post">
-                                @csrf
-                                <div class="form-group text-center">
-                                    <label for="">Footer</label>
-                                    <input type="text" name="footer" class="form-control" placeholder="Enter name">
-                                </div>
-                                <div class="form-group text-center">
-                                    <button class="btn btn-outline-success">Update</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 connectedSortable">
-                    <div class="card card-info">
-                        <div class="card-header">
-                            <h3 class="card-title">Brand Image</h3>
+                            <h3 class="card-title">Brand Social</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                     <i class="fas fa-minus"></i>
@@ -98,24 +120,24 @@
                             <form action="{{ url('/brandUpdate') }}" method="post">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="">Facebook</label>
-                                    <input type="text" name="facebook" class="form-control" placeholder="Enter name Faceboo">
+                                    <label class="text-primary">Facebook</label>
+                                    <input type="text" name="facebook" class="form-control border-primary" placeholder="Enter Facebook link">
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Insta</label>
-                                    <input type="text" name="insta" class="form-control" placeholder="Enter name instagram">
+                                    <label class="text-pink">Instagram</label>
+                                    <input type="text" name="insta" class="form-control" placeholder="Enter instagram link" style="border: 1px solid #e83e8c">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="">Youtube</label>
-                                    <input type="text" name="youtube" class="form-control" placeholder="Enter name youtube">
+                                    <label class="text-danger">Youtube</label>
+                                    <input type="text" name="youtube" class="form-control border-danger" placeholder="Enter youtube link">
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Twiiter</label>
-                                    <input type="text" name="twitter" class="form-control" placeholder="Enter name twitter">
+                                    <label class="text-info">Twiiter</label>
+                                    <input type="text" name="twitter" class="form-control border-info" placeholder="Enter twitter link">
                                 </div>
                                 <div class="form-group text-center">
-                                    <button class="btn btn-outline-success">Update</button>
+                                    <button class="btn btn-outline-success">Social Link Update</button>
                                 </div>
                             </form>
                         </div>

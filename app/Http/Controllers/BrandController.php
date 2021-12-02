@@ -24,7 +24,7 @@ class BrandController extends Controller
     {
         $brand = Brand::first()->get();
         return view('admin.setting.index', [
-            'brand'=>$brand,
+            'brand' => $brand,
         ]);
     }
 
@@ -78,6 +78,16 @@ class BrandController extends Controller
      * @param  \App\Models\Brand  $brand
      * @return \Illuminate\Http\Response
      */
+
+    // Name Update
+    public function BrandName(Request $request){
+        Brand::first()->update([
+            'brand_name' => $request->brand_name,
+        ]);
+        return back()->with('nameupdate', 'Brand Name Updated Successfully');
+    }
+
+    // Photo Update
     public function BrandUpdate(Request $request)
     {
         if ($request->hasFile('brand_img')) {
@@ -100,7 +110,6 @@ class BrandController extends Controller
             Image::make($new_brand_photo)->save(base_path('public/uploads/brand/'.$brand_img));
             Brand::first()->update([
                 'brand_img'=>$brand_img,
-                'brand_name' => $request->brand_name,
             ]);
             return back()->with('imageupdate', 'Your Brand Photo & Name Updated');
         }
