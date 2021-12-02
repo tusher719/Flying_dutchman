@@ -131,6 +131,8 @@
                 <!-- Header Action Start -->
                 <div class="col col-lg-auto align-self-center pl-0">
                     <div class="header-actions">
+                        <a href="{{ url('/category') }}" class="header-action-btn login-btn" data-bs-toggle="modal"
+                           data-bs-target="#loginActive">Dashboard</a>
                         <a href="login.html" class="header-action-btn login-btn" data-bs-toggle="modal"
                            data-bs-target="#loginActive">Sign In</a>
                         <!-- Single Wedge Start -->

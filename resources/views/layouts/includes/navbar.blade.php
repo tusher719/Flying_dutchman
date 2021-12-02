@@ -1,4 +1,4 @@
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand navbar-white navbar-gray-dark border-info">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
@@ -42,7 +42,7 @@
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-comments"></i>
-                <span class="badge badge-danger navbar-badge">3</span>
+                <span class="badge badge-secondary navbar-badge">3</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <a href="#" class="dropdown-item">
@@ -106,7 +106,7 @@
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge">15</span>
+                <span class="badge badge-secondary navbar-badge">15</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <span class="dropdown-item dropdown-header">15 Notifications</span>
@@ -151,13 +151,8 @@
                     <i class="fas fa-user mr-2"></i> My Profile
                 </a>
                 <span><div class="dropdown-divider"></div></span>
-                <a href="{{ url('/brand') }}" class="dropdown-item">
-                    <i class="fas fa-cog mr-2"></i> Setting
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-bug mr-2"></i> 3 new reports
-                    <span class="float-right text-muted text-sm">2 days</span>
+                <a href="{{ url('/setting') }}" class="dropdown-item">
+                    <i class="fas fa-cogs mr-2"></i> Setting
                 </a>
                 <div class="dropdown-divider"></div>
                 <a href="{{ route('logout') }}" class="dropdown-item mb-1" onclick="event.preventDefault();

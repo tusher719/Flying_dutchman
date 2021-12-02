@@ -66,6 +66,11 @@ class ProfileController extends Controller
         $extension = $new_profile_photo->getClientOriginalExtension();
         $photo_name = 'user-'.Auth::id().'_'.date('d-m-Y').'.'.$extension;
 
+        if (Auth::user()->user_photo != 'default.jpg') {
+            $path = public_path()."/uploads/users/".Auth::user()->user_photo;
+            unlink($path);
+        }
+
         Image::make($new_profile_photo)->save(base_path('public/uploads/users/'.$photo_name));
         User::find(Auth::id())->update([
             'user_photo'=>$photo_name,

@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\File;
 
 class BrandController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +23,7 @@ class BrandController extends Controller
     public function index()
     {
         $brand = Brand::first()->get();
-        return view('admin.brand.index', [
+        return view('admin.setting.index', [
             'brand'=>$brand,
         ]);
     }

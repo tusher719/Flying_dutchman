@@ -62,5 +62,5 @@ Route::get('/product/all', [ProductController::class, 'allproduct']);
 
 
 // Brand
-Route::get('/brand', [BrandController::class, 'index']);
+Route::get('/setting', [BrandController::class, 'index']);
 Route::post('/brandUpdate', [BrandController::class, 'BrandUpdate']);

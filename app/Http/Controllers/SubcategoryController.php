@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Auth;
 
 class SubcategoryController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     function index()
     {
         $total_subcategory = SubCategory::count();

@@ -23,7 +23,7 @@
     <div class="container">
         <div class="row">
                 <div class="col-lg-4 connectedSortable">
-                    <div class="card card-success">
+                    <div class="card card-info">
                         <div class="card-header">
                             <h3 class="card-title">Brand Image</h3>
                             <div class="card-tools">
@@ -60,7 +60,7 @@
                 </div>
 
                 <div class="col-lg-4 connectedSortable">
-                    <div class="card card-success">
+                    <div class="card card-info">
                         <div class="card-header">
                             <h3 class="card-title">Brand Image</h3>
                             <div class="card-tools">
@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="col-lg-4 connectedSortable">
-                    <div class="card card-success">
+                    <div class="card card-info">
                         <div class="card-header">
                             <h3 class="card-title">Brand Image</h3>
                             <div class="card-tools">
