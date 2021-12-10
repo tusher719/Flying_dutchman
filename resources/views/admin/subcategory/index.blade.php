@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    SubCategory | Flying Dutchman
+    SubCategory
 @endsection
 
 {{-- MenuBar Active --}}
@@ -34,11 +34,12 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-10  m-auto connectedSortable">
-                <div class="card card-outline card-success">
+                <div class="card card-info">
                     <div class="card-header">
                         <h3 class="card-title">
                             <i class="fas fa-list-ul"></i>
-                            SubCategory List <span class="badge badge-info">{{ $total_subcategory }}</span>
+                            SubCategory List
+                            <span class="badge badge-success">{{ $total_subcategory }}</span>
                         </h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">

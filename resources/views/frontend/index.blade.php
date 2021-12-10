@@ -128,7 +128,7 @@
 
                                 @foreach($categories as $category)
                                         <li class="nav-item"><a class="nav-link" data-bs-toggle="tab"
-                                                        href="#tab-product--new">{{ $category->category_name }}</a>
+                                                        href="#tab{{ $category->id }}">{{ $category->category_name }}</a>
                                         </li>
                                 @endforeach
                             </ul>
@@ -143,1342 +143,369 @@
             <div class="row">
                 <div class="col">
                     <div class="tab-content mb-30px0px">
-                        <!-- 1st tab start -->
+                        <!-- All-tab start -->
                         <div class="tab-pane fade show active" id="tab-product--all">
                             <div class="row">
-
                                 @foreach($products as $product)
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up" data-aos-delay="200">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('uploads/product')}}/{{ $product->product_thumbnail }}" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                                <span class="new">New</span>
-                                                @if($product->discount_percentage)
-                                                <span class="sale">-{{ $product->discount_percentage }}%</span>
-                                                @endif
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 100%"></span>
+                                    <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up" data-aos-delay="200">
+                                        <!-- Single Prodect -->
+                                        <div class="product">
+                                            <div class="thumb">
+                                                <a href="#" class="image">
+                                                    <img src="{{ asset('uploads/product') }}/{{ $product->product_thumbnail }}" alt="Product" />
+                                                </a>
+                                                <span class="badges">
+                                                    <span class="new">New</span>
+                                                    @if($product->discount_percentage)
+                                                        <span class="sale">-{{ $product->discount_percentage }}%</span>
+                                                    @endif
                                                 </span>
-                                                <span class="rating-num">( 5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">{{ $product->product_name }}</a>
-                                            </h5>
-                                            <span class="price">
-                                                <span class="new">${{ $product->product_price }}</span>
-                                            </span>
+                                                <div class="actions">
+                                                    <a href="wishlist.html" class="action wishlist" title="Wishlist"><i class="pe-7s-like"></i></a>
+                                                    {{-- Model Icon --}}
+                                                    <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#prod{{ $product->id }}"><i class="pe-7s-search"></i></a>
+                                                    <a href="compare.html" class="action compare" title="Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                </div>
+                                                <button title="Add To Cart" class=" add-to-cart">Add To Cart</button>
+                                            </div>
+                                            <div class="content">
+                                                <span class="ratings">
+                                                    <span class="rating-wrap">
+                                                        <span class="star" style="width: 100%"></span>
+                                                    </span>
+                                                    <span class="rating-num">( 5 Review )</span>
+                                                </span>
+                                                <h5 class="title text-capitalize"><a href="single-product.html">{{ $product->product_name }}</a>
+                                                </h5>
+                                                <span class="price">
+                                                    <span class="new">
+                                                        @if($product->discount_percentage)
+                                                            ${{ $product->discount_price }}
+                                                        @else()
+                                                            ${{ $product->product_price }}
+                                                        @endif
+
+                                                            @if($product->discount_percentage)
+                                                                <span class="old">
+                                                                    ${{ $product->product_price }}
+                                                                </span>
+                                                            @endif
+                                                    </span>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+
+
+                                    <!-- All Product Modal -->
+                                    <div class="modal modal-2 fade" id="prod{{ $product->id }}" tabindex="-1" role="dialog">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-sm-12 col-xs-12 mb-lm-30px mb-md-30px mb-sm-30px">
+                                                            <!-- Swiper -->
+                                                            <div class="swiper-container zoom-top">
+                                                                <div class="swiper-wrapper">
+                                                                    @foreach(App\Models\ProductThubnailMultiple::where('product_id', $product->id)->get() as $product_multiple_image)
+                                                                    <div class="swiper-slide">
+                                                                        <img class="img-responsive m-auto"
+                                                                             src="{{ asset('uploads/product/multiple_images') }}/{{ $product_multiple_image->product_multiple_image }}" alt="">
+                                                                    </div>
+                                                                    @endforeach
+                                                                </div>
+                                                            </div>
+                                                            <div class="swiper-container zoom-thumbs mt-3 mb-3">
+                                                                <div class="swiper-wrapper">
+                                                                    @foreach(App\Models\ProductThubnailMultiple::where('product_id', $product->id)->get() as $product_multiple_image)
+                                                                    <div class="swiper-slide">
+                                                                        <img class="img-responsive m-auto"
+                                                                             src="{{ asset('uploads/product/multiple_images') }}/{{ $product_multiple_image->product_multiple_image }}" alt="">
+                                                                    </div>
+                                                                    @endforeach
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="200">
+                                                            <div class="product-details-content quickview-content">
+                                                                <h2>{{ $product->product_name }}</h2>
+                                                                <div class="pricing-meta">
+                                                                    <ul>
+                                                                        <li class="old-price not-cut">
+                                                                            @if($product->discount_percentage)
+                                                                                ${{ $product->discount_price }}
+                                                                            @else()
+                                                                                ${{ $product->product_price }}
+                                                                            @endif
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="pro-details-rating-wrap">
+                                                                    <div class="rating-product">
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                    </div>
+                                                                    <span class="read-review"><a class="reviews" href="#">( 5 Customer Review
+                                            )</a></span>
+                                                                </div>
+                                                                <p class="mt-30px mb-0"> {{ $product->product_desp }} </p>
+                                                                <div class="pro-details-quality">
+                                                                    <div class="cart-plus-minus">
+                                                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
+                                                                    </div>
+                                                                    <div class="pro-details-cart">
+                                                                        <button class="add-cart" href="#"> Add To
+                                                                            Cart</button>
+                                                                    </div>
+                                                                    <div class="pro-details-compare-wishlist pro-details-wishlist ">
+                                                                        <a href="wishlist.html"><i class="pe-7s-like"></i></a>
+                                                                    </div>
+                                                                    <div class="pro-details-compare-wishlist pro-details-compare">
+                                                                        <a href="compare.html"><i class="pe-7s-refresh-2"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="pro-details-sku-info pro-details-same-style  d-flex">
+                                                                    <span>SKU: </span>
+                                                                    <ul class="d-flex">
+                                                                        <li>
+                                                                            <a href="#">{{ $product->product_code }}</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="pro-details-categories-info pro-details-same-style d-flex">
+                                                                    <span>Categories: </span>
+                                                                    <ul class="d-flex">
+                                                                        <li>
+                                                                            <a href="#">{{ App\Models\Category::find($product->category_id)->category_name }}</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="pro-details-social-info pro-details-same-style d-flex">
+                                                                    <span>Share: </span>
+                                                                    <ul class="d-flex">
+                                                                        <li>
+                                                                            <a href="#"><i class="fa fa-facebook"></i></a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#"><i class="fa fa-twitter"></i></a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#"><i class="fa fa-google"></i></a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#"><i class="fa fa-youtube"></i></a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#"><i class="fa fa-instagram"></i></a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal end -->
+
+
+
                                 @endforeach
                             </div>
                         </div>
-                        <!-- 1st tab end -->
-                        <!-- 2nd tab start -->
-                        <div class="tab-pane fade" id="tab-product--new">
-                            <div class="row">
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                     data-aos-delay="200">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/1.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                                <span class="new">New</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
+                        <!-- All-tab end -->
+
+
+                        <!-- Category wise tab start -->
+                        @foreach($categories as $category)
+
+                            <div class="tab-pane fade" id="tab{{ $category->id }}">
+                                <div class="row">
+                                    @foreach(App\Models\Product::where('category_id', $category->id)->get() as $product)
+                                        <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up" data-aos-delay="200">
+                                            <!-- Single Prodect -->
+                                            <div class="product">
+                                                <div class="thumb">
+                                                    <a href="#" class="image">
+                                                        <img src="{{ asset('uploads/product') }}/{{ $product->product_thumbnail }}" alt="Product" />
+                                                    </a>
+                                                    <span class="badges">
+                                                        <span class="new">New</span>
+                                                        @if($product->discount_percentage)
+                                                            <span class="sale">-{{ $product->discount_percentage }}%</span>
+                                                        @endif
+                                                    </span>
+                                                    <div class="actions">
+                                                        <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
                                                         class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
+                                                        {{-- Model Icon --}}
+                                                        <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#pro{{ $product->id }}"><i class="pe-7s-search"></i></a>
+                                                        <a href="compare.html" class="action compare" title="Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                    </div>
+                                                    <button title="Add To Cart" class=" add-to-cart">Add To Cart</button>
+                                                </div>
+                                                <div class="content">
+                                                    <span class="ratings">
+                                                        <span class="rating-wrap">
+                                                            <span class="star" style="width: 100%"></span>
+                                                        </span>
+                                                        <span class="rating-num">( 5 Review )</span>
+                                                    </span>
+                                                    <h5 class="title"><a href="single-product.html">{{ $product->product_name }}</a>
+                                                    </h5>
+                                                    <span class="price">
+                                                        <span class="new">
+                                                            @if($product->discount_percentage)
+                                                                ${{ $product->discount_price }}
+                                                            @else()
+                                                                ${{ $product->product_price }}
+                                                            @endif
+
+                                                            @if($product->discount_percentage)
+                                                                <span class="old">
+                                                                    ${{ $product->product_price }}
+                                                                </span>
+                                                            @endif
+                                                        </span>
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
                                         </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 100%"></span>
-                                                </span>
-                                                <span class="rating-num">( 5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Women's Elizabeth Coat
-                                                </a>
-                                            </h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                     data-aos-delay="400">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/3.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                                <span class="sale">-10%</span>
-                                                <span class="new">New</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
+
+
+                                        <!-- Category wise Modal -->
+                                        <div class="modal modal-2 fade" id="pro{{ $product->id }}" tabindex="-1" role="dialog">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-lg-6 col-sm-12 col-xs-12 mb-lm-30px mb-md-30px mb-sm-30px">
+                                                                <!-- Swiper -->
+                                                                <div class="swiper-container zoom-top">
+                                                                    <div class="swiper-wrapper">
+                                                                        <div class="swiper-slide">
+                                                                            <img class="img-responsive m-auto"
+                                                                                 src="{{ asset('uploads/product') }}/{{ $product->product_thumbnail }}" alt="">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+{{--                                                                <div class="swiper-container zoom-thumbs mt-3 mb-3">--}}
+{{--                                                                    <div class="swiper-wrapper">--}}
+{{--                                                                        <div class="swiper-slide">--}}
+{{--                                                                            <img class="img-responsive m-auto"--}}
+{{--                                                                                 src="{{ asset('frontend_assets') }}/images/product-image/small-image/1.jpg" alt="">--}}
+{{--                                                                        </div>--}}
+{{--                                                                        <div class="swiper-slide">--}}
+{{--                                                                            <img class="img-responsive m-auto"--}}
+{{--                                                                                 src="{{ asset('frontend_assets') }}/images/product-image/small-image/2.jpg" alt="">--}}
+{{--                                                                        </div>--}}
+{{--                                                                        <div class="swiper-slide">--}}
+{{--                                                                            <img class="img-responsive m-auto"--}}
+{{--                                                                                 src="{{ asset('frontend_assets') }}/images/product-image/small-image/3.jpg" alt="">--}}
+{{--                                                                        </div>--}}
+{{--                                                                        <div class="swiper-slide">--}}
+{{--                                                                            <img class="img-responsive m-auto"--}}
+{{--                                                                                 src="{{ asset('frontend_assets') }}/images/product-image/small-image/4.jpg" alt="">--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
+{{--                                                                </div>--}}
+                                                            </div>
+                                                            <div class="col-lg-6 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="200">
+                                                                <div class="product-details-content quickview-content">
+                                                                    <h2>{{ $product->product_name }}</h2>
+                                                                    <div class="pricing-meta">
+                                                                        <ul>
+                                                                            <li class="old-price not-cut">
+                                                                                @if($product->discount_percentage)
+                                                                                    BDT {{ $product->discount_price }}
+                                                                                @else()
+                                                                                    BDT {{ $product->product_price }}
+                                                                                @endif
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="pro-details-rating-wrap">
+                                                                        <div class="rating-product">
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                        </div>
+                                                                        <span class="read-review"><a class="reviews" href="#">( 5 Customer Review
+                                            )</a></span>
+                                                                    </div>
+                                                                    <p class="mt-30px mb-0"> {{$product->product_desp}} </p>
+                                                                    <div class="pro-details-quality">
+                                                                        <div class="cart-plus-minus">
+                                                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
+                                                                        </div>
+                                                                        <div class="pro-details-cart">
+                                                                            <button class="add-cart" href="#"> Add To
+                                                                                Cart</button>
+                                                                        </div>
+                                                                        <div class="pro-details-compare-wishlist pro-details-wishlist ">
+                                                                            <a href="wishlist.html"><i class="pe-7s-like"></i></a>
+                                                                        </div>
+                                                                        <div class="pro-details-compare-wishlist pro-details-compare">
+                                                                            <a href="compare.html"><i class="pe-7s-refresh-2"></i></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="pro-details-sku-info pro-details-same-style  d-flex">
+                                                                        <span>SKU: </span>
+                                                                        <ul class="d-flex">
+                                                                            <li>
+                                                                                <a href="#">{{ $product->product_code }}</a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="pro-details-categories-info pro-details-same-style d-flex">
+                                                                        <span>Categories: </span>
+                                                                        <ul class="d-flex">
+                                                                            <li>
+                                                                                <a href="#"> {{ App\Models\Category::find($product->category_id)->category_name }} </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="pro-details-social-info pro-details-same-style d-flex">
+                                                                        <span>Share: </span>
+                                                                        <ul class="d-flex">
+                                                                            <li>
+                                                                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="#"><i class="fa fa-google"></i></a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="#"><i class="fa fa-youtube"></i></a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="#"><i class="fa fa-instagram"></i></a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
                                         </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 80%"></span>
-                                                </span>
-                                                <span class="rating-num">( 4 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Ardene Microfiber
-                                                    Tights</a>
-                                            </h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                                <span class="old">$48.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- Single Prodect -->
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                     data-aos-delay="600">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/5.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                                <span class="sale">-7%</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 90%"></span>
-                                                </span>
-                                                <span class="rating-num">( 4.5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Women's Long Sleeve
-                                                    Shirts</a></h5>
-                                            <span class="price">
-                                                <span class="new">$30.50</span>
-                                                <span class="old">$38.00</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                     data-aos-delay="800">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/7.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                                <span class="new">Sale</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 70%"></span>
-                                                </span>
-                                                <span class="rating-num">( 3.5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Parrera Sunglasses -
-                                                    Lomashop</a></h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- Single Prodect -->
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-md-30px mb-lm-30px"
-                                     data-aos="fade-up" data-aos-delay="200">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/2.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                                <span class="sale">-5%</span>
-                                                <span class="new">New</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 100%"></span>
-                                                </span>
-                                                <span class="rating-num">( 5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Cool Man Wearing
-                                                    Leather</a></h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                                <span class="old">$40.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6  mb-md-30px mb-lm-30px"
-                                     data-aos="fade-up" data-aos-delay="400">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/4.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 100%"></span>
-                                                </span>
-                                                <span class="rating-num">( 5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Portrait Of A Young
-                                                    Stylish</a>
-                                            </h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- Single Prodect -->
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-es-30px" data-aos="fade-up"
-                                     data-aos-delay="600">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/6.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 80%"></span>
-                                                </span>
-                                                <span class="rating-num">( 4 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Men's Fashion Leather
-                                                    Bag</a></h5>
-                                            <span class="price">
-                                                <span class="new">$30.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 " data-aos="fade-up"
-                                     data-aos-delay="800">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/8.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                                <span class="new">Sale</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 60%"></span>
-                                                </span>
-                                                <span class="rating-num">( 3 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Long sleeve knee
-                                                    length</a></h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- Single Prodect -->
+                                        <!-- Category wise Model end -->
+
+
+                                    @endforeach
                                 </div>
                             </div>
-                        </div>
-                        <!-- 2nd tab end -->
-                        <!-- 3rd tab start -->
-                        <div class="tab-pane fade" id="tab-product-men">
-                            <div class="row">
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                     data-aos-delay="200">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/1.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                                <span class="new">New</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 100%"></span>
-                                                </span>
-                                                <span class="rating-num">( 5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Women's Elizabeth Coat
-                                                </a>
-                                            </h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                     data-aos-delay="400">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/3.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                                <span class="sale">-10%</span>
-                                                <span class="new">New</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 80%"></span>
-                                                </span>
-                                                <span class="rating-num">( 4 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Ardene Microfiber
-                                                    Tights</a>
-                                            </h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                                <span class="old">$48.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- Single Prodect -->
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                     data-aos-delay="600">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/5.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                                <span class="sale">-7%</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 90%"></span>
-                                                </span>
-                                                <span class="rating-num">( 4.5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Women's Long Sleeve
-                                                    Shirts</a></h5>
-                                            <span class="price">
-                                                <span class="new">$30.50</span>
-                                                <span class="old">$38.00</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                     data-aos-delay="800">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/7.jpg" alt="Product" />
-
-                                            </a>
-                                            <span class="badges">
-                                                <span class="new">Sale</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 70%"></span>
-                                                </span>
-                                                <span class="rating-num">( 3.5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Parrera Sunglasses -
-                                                    Lomashop</a></h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- Single Prodect -->
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-md-30px mb-lm-30px"
-                                     data-aos="fade-up" data-aos-delay="200">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/2.jpg" alt="Product" />
-
-                                            </a>
-                                            <span class="badges">
-                                                <span class="sale">-5%</span>
-                                                <span class="new">New</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 100%"></span>
-                                                </span>
-                                                <span class="rating-num">( 5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Cool Man Wearing
-                                                    Leather</a></h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                                <span class="old">$40.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6  mb-md-30px mb-lm-30px"
-                                     data-aos="fade-up" data-aos-delay="400">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/4.jpg" alt="Product" />
-
-                                            </a>
-                                            <span class="badges">
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 100%"></span>
-                                                </span>
-                                                <span class="rating-num">( 5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Portrait Of A Young
-                                                    Stylish</a>
-                                            </h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- Single Prodect -->
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-es-30px" data-aos="fade-up"
-                                     data-aos-delay="600">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/6.jpg" alt="Product" />
-
-                                            </a>
-                                            <span class="badges">
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 80%"></span>
-                                                </span>
-                                                <span class="rating-num">( 4 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Men's Fashion Leather
-                                                    Bag</a></h5>
-                                            <span class="price">
-                                                <span class="new">$30.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 " data-aos="fade-up"
-                                     data-aos-delay="800">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/8.jpg" alt="Product" />
-
-                                            </a>
-                                            <span class="badges">
-                                                <span class="new">Sale</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 60%"></span>
-                                                </span>
-                                                <span class="rating-num">( 3 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Long sleeve knee
-                                                    length</a></h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- Single Prodect -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 3rd tab end -->
-                        <!-- 4th tab start -->
-                        <div class="tab-pane fade" id="tab-product-women">
-                            <div class="row">
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                     data-aos-delay="200">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/1.jpg" alt="Product" />
-
-                                            </a>
-                                            <span class="badges">
-                                                <span class="new">New</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 100%"></span>
-                                                </span>
-                                                <span class="rating-num">( 5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Women's Elizabeth Coat
-                                                </a>
-                                            </h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                     data-aos-delay="400">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/3.jpg" alt="Product" />
-
-                                            </a>
-                                            <span class="badges">
-                                                <span class="sale">-10%</span>
-                                                <span class="new">New</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 80%"></span>
-                                                </span>
-                                                <span class="rating-num">( 4 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Ardene Microfiber
-                                                    Tights</a>
-                                            </h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                                <span class="old">$48.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- Single Prodect -->
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                     data-aos-delay="600">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/5.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                                <span class="sale">-7%</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 90%"></span>
-                                                </span>
-                                                <span class="rating-num">( 4.5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Women's Long Sleeve
-                                                    Shirts</a></h5>
-                                            <span class="price">
-                                                <span class="new">$30.50</span>
-                                                <span class="old">$38.00</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                     data-aos-delay="800">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/7.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                                <span class="new">Sale</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 70%"></span>
-                                                </span>
-                                                <span class="rating-num">( 3.5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Parrera Sunglasses -
-                                                    Lomashop</a></h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- Single Prodect -->
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-md-30px mb-lm-30px"
-                                     data-aos="fade-up" data-aos-delay="200">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/2.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                                <span class="sale">-5%</span>
-                                                <span class="new">New</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 100%"></span>
-                                                </span>
-                                                <span class="rating-num">( 5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Cool Man Wearing
-                                                    Leather</a></h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                                <span class="old">$40.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6  mb-md-30px mb-lm-30px"
-                                     data-aos="fade-up" data-aos-delay="400">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/4.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 100%"></span>
-                                                </span>
-                                                <span class="rating-num">( 5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Portrait Of A Young
-                                                    Stylish</a>
-                                            </h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- Single Prodect -->
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-es-30px" data-aos="fade-up"
-                                     data-aos-delay="600">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/6.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 80%"></span>
-                                                </span>
-                                                <span class="rating-num">( 4 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Men's Fashion Leather
-                                                    Bag</a></h5>
-                                            <span class="price">
-                                                <span class="new">$30.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 " data-aos="fade-up"
-                                     data-aos-delay="800">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/8.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                                <span class="new">Sale</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 60%"></span>
-                                                </span>
-                                                <span class="rating-num">( 3 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Long sleeve knee
-                                                    length</a></h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- Single Prodect -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 4th tab end -->
-                        <!-- 5th tab start -->
-                        <div class="tab-pane fade" id="tab-product-kids">
-                            <div class="row">
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                     data-aos-delay="200">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/1.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                                <span class="new">New</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 100%"></span>
-                                                </span>
-                                                <span class="rating-num">( 5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Women's Elizabeth Coat
-                                                </a>
-                                            </h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                     data-aos-delay="400">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/3.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                                <span class="sale">-10%</span>
-                                                <span class="new">New</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 80%"></span>
-                                                </span>
-                                                <span class="rating-num">( 4 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Ardene Microfiber
-                                                    Tights</a>
-                                            </h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                                <span class="old">$48.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- Single Prodect -->
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                     data-aos-delay="600">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/5.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                                <span class="sale">-7%</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 90%"></span>
-                                                </span>
-                                                <span class="rating-num">( 4.5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Women's Long Sleeve
-                                                    Shirts</a></h5>
-                                            <span class="price">
-                                                <span class="new">$30.50</span>
-                                                <span class="old">$38.00</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                     data-aos-delay="800">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/7.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                                <span class="new">Sale</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 70%"></span>
-                                                </span>
-                                                <span class="rating-num">( 3.5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Parrera Sunglasses -
-                                                    Lomashop</a></h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- Single Prodect -->
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-md-30px mb-lm-30px"
-                                     data-aos="fade-up" data-aos-delay="200">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/2.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                                <span class="sale">-5%</span>
-                                                <span class="new">New</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 100%"></span>
-                                                </span>
-                                                <span class="rating-num">( 5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Cool Man Wearing
-                                                    Leather</a></h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                                <span class="old">$40.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6  mb-md-30px mb-lm-30px"
-                                     data-aos="fade-up" data-aos-delay="400">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/4.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 100%"></span>
-                                                </span>
-                                                <span class="rating-num">( 5 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Portrait Of A Young
-                                                    Stylish</a>
-                                            </h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- Single Prodect -->
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-es-30px" data-aos="fade-up"
-                                     data-aos-delay="600">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/6.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 80%"></span>
-                                                </span>
-                                                <span class="rating-num">( 4 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Men's Fashion Leather
-                                                    Bag</a></h5>
-                                            <span class="price">
-                                                <span class="new">$30.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 " data-aos="fade-up"
-                                     data-aos-delay="800">
-                                    <!-- Single Prodect -->
-                                    <div class="product">
-                                        <div class="thumb">
-                                            <a href="single-product.html" class="image">
-                                                <img src="{{ asset('frontend_assets') }}/images/product-image/8.jpg" alt="Product" />
-                                            </a>
-                                            <span class="badges">
-                                                <span class="new">Sale</span>
-                                            </span>
-                                            <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="pe-7s-like"></i></a>
-                                                <a href="#" class="action quickview" data-link-action="quickview"
-                                                   title="Quick view" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="pe-7s-refresh-2"></i></a>
-                                            </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
-                                                To Cart</button>
-                                        </div>
-                                        <div class="content">
-                                            <span class="ratings">
-                                                <span class="rating-wrap">
-                                                    <span class="star" style="width: 60%"></span>
-                                                </span>
-                                                <span class="rating-num">( 3 Review )</span>
-                                            </span>
-                                            <h5 class="title"><a href="single-product.html">Long sleeve knee
-                                                    length</a></h5>
-                                            <span class="price">
-                                                <span class="new">$38.50</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- Single Prodect -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 5th tab end -->
+                        @endforeach
+                        <!-- Category wise tab end -->
                     </div>
                     <a href="shop-left-sidebar.html" class="btn btn-lg btn-primary btn-hover-dark m-auto"> Load More <i
                             class="fa fa-arrow-right ml-15px" aria-hidden="true"></i></a>

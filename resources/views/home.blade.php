@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Home | Flying Dutchman
+    Dashboard
 @endsection
 
 @section('home')

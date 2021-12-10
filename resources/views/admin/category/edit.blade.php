@@ -3,8 +3,16 @@
 
 
 @section('title')
-    Edit Category | Flying Dutchman
+    Edit Category
 @endsection
+
+@section('category')
+    active
+@endsection
+@section('tree_menu')
+    menu-open
+@endsection
+
 {{--Page Title--}}
 @section('pageTitle')
     <div class="row mb-2">
@@ -26,9 +34,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 m-auto">
-                <div class="card card-success card-outline">
+                <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title text-gray">
+                        <h3 class="card-title">
                             <i class="far fa-edit"></i> Edit Category
                         </h3>
                     </div>

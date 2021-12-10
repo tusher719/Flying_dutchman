@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductThubnailMultiple;
 use App\Models\SubCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -32,7 +33,6 @@ class ProductController extends Controller
            'subcategory_id'=>$request->subcategory_id,
            'product_name'=>$request->product_name,
            'product_code'=>$request->product_code,
-           'product_quantity'=>$request->product_quantity,
            'product_price'=>$request->product_price,
            'discount_percentage'=>$request->discount_percentage,
            'discount_price'=>$request->product_price - $discount,
@@ -44,10 +44,22 @@ class ProductController extends Controller
         $extension = $new_product_photo->getClientOriginalExtension();
         $product_name = 'product-'.$product_id.'_'.date('d-m-Y').'.'.$extension;
 
-        Image::make($new_product_photo)->save(base_path('public/uploads/product/'.$product_name));
+        Image::make($new_product_photo)->resize(800,800)->save(base_path('public/uploads/product/'.$product_name));
         Product::find($product_id)->update([
             'product_thumbnail'=>$product_name,
         ]);
+
+        $start = 1;
+        foreach ($request->product_multiple as $single_image){
+            $new_image_name = 'product-'.$product_id.'_thumbnail-'.$start.'.'.$single_image->getClientOriginalExtension();
+            Image::make($single_image)->resize(800,800)->save(base_path('public/uploads/product/multiple_images/'.$new_image_name));
+            ProductThubnailMultiple::insert([
+                'product_id' => $product_id,
+                'product_multiple_image' => $new_image_name,
+                'created_at' => Carbon::now(),
+            ]);
+            $start++;
+        }
         return back()->with('add_product', 'Product Added Successfully');
     }
 

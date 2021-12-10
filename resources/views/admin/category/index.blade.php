@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Category | Flying Dutchman
+    Category
 @endsection
 
 @section('category')
@@ -13,7 +13,7 @@
 
 {{--Page Title--}}
 @section('pageTitle')
-    <div class="row mb-2">
+    <div class="row">
         <div class="col-sm-6">
             <h3 class="m-0">Category</h3>
         </div><!-- /.col -->
@@ -32,12 +32,12 @@
         <div class="row">
 
             <div class="col-md-10 m-auto connectedSortable">
-                <div class="card card-primary">
+                <div class="card card-info">
                     <div class="card-header">
                         <h3 class="card-title">
                             <i class="fas fa-layer-group"></i>
                             Category List
-                            <span class="badge bg-info">{{ $total_category }}</span>
+                            <span class="badge bg-success">{{ $total_category }}</span>
                         </h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -101,7 +101,11 @@
                                             <td>{{ $loop->index+1 }}</td>
                                             <td>{{ $category->category_name }}</td>
                                             <td>
-                                                <img style="width: 120px;" src="{{ asset('uploads/category')}}/{{ $category->category_image }}" alt="">
+                                                @if($category->category_image)
+                                                    <img style="width: 120px;" src="{{ asset('uploads/category')}}/{{ $category->category_image }}" alt="">
+                                                @else()
+                                                    <span class="text-danger">No Image</span>
+                                                @endif
                                             </td>
                                             <td>{{ App\Models\User::find($category->added_by)->name }}</td>
                                             <td>{{ $category->created_at->diffForHumans() }}</td>

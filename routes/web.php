@@ -8,7 +8,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\BrandController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +62,6 @@ Route::get('/product/all', [ProductController::class, 'allproduct']);
 
 
 // Setting
-Route::get('/setting', [BrandController::class, 'index']);
-Route::post('/brand/Name', [BrandController::class, 'BrandName']);
-Route::post('/brandUpdate', [BrandController::class, 'BrandUpdate']);
+Route::get('/setting', [SettingController::class, 'index']);
+Route::post('/brand/Name', [SettingController::class, 'BrandName']);
+Route::post('/brandUpdate', [SettingController::class, 'BrandUpdate']);

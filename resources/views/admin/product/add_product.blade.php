@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Add-Product | Flying Dutchman
+    Add-Product
 @endsection
 
 @section('productAdd')
@@ -13,7 +13,7 @@
 
 {{--Page Title--}}
 @section('pageTitle')
-    <div class="row mb-2">
+    <div class="row">
         <div class="col-sm-6">
             <h3 class="m-0">Product</h3>
         </div><!-- /.col -->
@@ -75,12 +75,6 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="">Product Quantity</label>
-                                        <input type="number" name="product_quantity" class="form-control" placeholder="Enter product Quantity">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
                                         <label for="">Product Price</label>
                                         <input type="text" name="product_price" class="form-control" placeholder="Enter selling price">
                                     </div>
@@ -99,8 +93,14 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="">Main Thambnail</label>
+                                        <label for="">Main Thumbnail</label>
                                         <input type="file" name="product_thumbnail" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Multiple Thumbnail</label>
+                                        <input type="file" name="product_multiple[]" class="form-control" multiple>
                                     </div>
                                 </div>
                             </div>

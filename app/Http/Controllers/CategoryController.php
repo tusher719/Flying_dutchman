@@ -15,7 +15,7 @@ class CategoryController extends Controller
         $this->middleware('auth');
     }
 
-    //    View funcion
+    // View funcion
     function index()
     {
         $total_category = Category::count();

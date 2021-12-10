@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    All-Product | Flying Dutchman
+    All-Product
 @endsection
 
 @section('productManage')
@@ -30,7 +30,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card card-outline card-success">
+                <div class="card card-info">
                     <div class="card-header">
                         <h3 CLASS="card-title">All Product</h3>
                     </div>
@@ -60,7 +60,7 @@
                         <div class="table-responsive mailbox-messages">
                             <table id="example1" class="table table-bordered table-hover table-striped">
                                 <thead>
-                                <tr>
+                                <tr class="text-sm">
                                     <th>#</th>
                                     <th>SL</th>
                                     <th>Category</th>
@@ -70,7 +70,7 @@
                                     <th>Quantity</th>
                                     <th>Regular Price</th>
                                     <th>Discount</th>
-                                    <th>Dis Price</th>
+                                    <th>Disc Price</th>
                                     <th>Description</th>
                                     <th>Thumbnail</th>
                                     <th>Created_at</th>
@@ -96,12 +96,18 @@
                                         <td>{{ $products->product_price }}</td>
                                         <td>
                                             @if( $products->discount_percentage )
-                                                {{ $products->discount_percentage }} %
+                                                {{ $products->discount_percentage }}%
                                                 @else
-                                                    <span style="color: #ff0000"> N/A </span>
+                                                    <span class="text-danger"> N/A </span>
                                             @endif
                                         </td>
-                                        <td>{{ $products->discount_price }}</td>
+                                        <td>
+                                            @if( $products->discount_percentage )
+                                                {{ $products->discount_price }}
+                                            @else
+                                                <span class="text-danger"> N/A </span>
+                                            @endif
+                                        </td>
                                         <td>{{ $products->product_desp }}</td>
                                         <td>
                                             <img width="80px" src="{{ asset('/uploads/product') }}/{{ $products->product_thumbnail }}" alt="">

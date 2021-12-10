@@ -1,7 +1,7 @@
 @extends('layouts.master')
 {{--@extends('layouts.app')--}}
 @section('title')
-    User | Flying Dutchman
+    User
 @endsection
 
 {{-- Menubar Active --}}
@@ -62,6 +62,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>SL</th>
+                                        <th>Image</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Created_at</th>
@@ -77,21 +78,17 @@
                                                 </div>
                                             </td>
                                             <td>{{ $users->firstItem() + $index }}</td>
+                                            <td>
+                                                <img style="height: 40px; width: 40px; object-fit: cover;"
+                                                     src="{{ asset('uploads/users') }}/{{ $user->user_photo }}"
+                                                     class="img-circle elevation-2" alt="User Image">
+                                            </td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->created_at->diffForHumans() }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>SL</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Created_at</th>
-                                    </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                         </div>

@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
-//use Faker\Core\File;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
 
-class BrandController extends Controller
+class SettingController extends Controller
 {
 
     public function __construct()

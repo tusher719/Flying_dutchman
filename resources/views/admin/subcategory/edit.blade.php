@@ -2,8 +2,17 @@
 {{--@extends('layouts.app')--}}
 
 @section('title')
-    Home | Flying Dutchman
+    Home
 @endsection
+
+{{-- MenuBar Active --}}
+@section('subcategory')
+    active
+@endsection
+@section('tree_menu')
+    menu-open
+@endsection
+
 {{--Page Title--}}
 @section('pageTitle')
     <div class="row mb-2">
@@ -25,9 +34,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 m-auto">
-                <div class="card card-success card-outline">
+                <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title text-gray"><i class="far fa-edit"></i> Category Edit</h3>
+                        <h3 class="card-title"><i class="far fa-edit"></i> SubCategory Edit</h3>
                     </div>
                     <div class="card-body">
                         <form action="{{url('/subcategory/update')}}" method="POST">
