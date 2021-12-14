@@ -208,10 +208,10 @@
                                                             <div class="swiper-container zoom-top">
                                                                 <div class="swiper-wrapper">
                                                                     @foreach(App\Models\ProductThubnailMultiple::where('product_id', $product->id)->get() as $product_multiple_image)
-                                                                    <div class="swiper-slide">
-                                                                        <img class="img-responsive m-auto"
-                                                                             src="{{ asset('uploads/product/multiple_images') }}/{{ $product_multiple_image->product_multiple_image }}" alt="">
-                                                                    </div>
+                                                                        <div class="swiper-slide">
+                                                                            <img class="img-responsive m-auto"
+                                                                                 src="{{ asset('uploads/product/multiple_images') }}/{{ $product_multiple_image->product_multiple_image }}" alt="">
+                                                                        </div>
                                                                     @endforeach
                                                                 </div>
                                                             </div>
@@ -387,32 +387,25 @@
                                                                 <!-- Swiper -->
                                                                 <div class="swiper-container zoom-top">
                                                                     <div class="swiper-wrapper">
-                                                                        <div class="swiper-slide">
-                                                                            <img class="img-responsive m-auto"
-                                                                                 src="{{ asset('uploads/product') }}/{{ $product->product_thumbnail }}" alt="">
-                                                                        </div>
+
+                                                                        @foreach(App\Models\ProductThubnailMultiple::where('product_id', $product->id)->get() as $product_multiple_image)
+                                                                            <div class="swiper-slide">
+                                                                                <img class="img-responsive m-auto"
+                                                                                     src="{{ asset('uploads/product/multiple_images') }}/{{ $product_multiple_image->product_multiple_image }}" alt="">
+                                                                            </div>
+                                                                        @endforeach
                                                                     </div>
                                                                 </div>
-{{--                                                                <div class="swiper-container zoom-thumbs mt-3 mb-3">--}}
-{{--                                                                    <div class="swiper-wrapper">--}}
-{{--                                                                        <div class="swiper-slide">--}}
-{{--                                                                            <img class="img-responsive m-auto"--}}
-{{--                                                                                 src="{{ asset('frontend_assets') }}/images/product-image/small-image/1.jpg" alt="">--}}
-{{--                                                                        </div>--}}
-{{--                                                                        <div class="swiper-slide">--}}
-{{--                                                                            <img class="img-responsive m-auto"--}}
-{{--                                                                                 src="{{ asset('frontend_assets') }}/images/product-image/small-image/2.jpg" alt="">--}}
-{{--                                                                        </div>--}}
-{{--                                                                        <div class="swiper-slide">--}}
-{{--                                                                            <img class="img-responsive m-auto"--}}
-{{--                                                                                 src="{{ asset('frontend_assets') }}/images/product-image/small-image/3.jpg" alt="">--}}
-{{--                                                                        </div>--}}
-{{--                                                                        <div class="swiper-slide">--}}
-{{--                                                                            <img class="img-responsive m-auto"--}}
-{{--                                                                                 src="{{ asset('frontend_assets') }}/images/product-image/small-image/4.jpg" alt="">--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
+                                                                <div class="swiper-container zoom-thumbs mt-3 mb-3">
+                                                                    <div class="swiper-wrapper">
+                                                                        @foreach(App\Models\ProductThubnailMultiple::where('product_id', $product->id)->get() as $product_multiple_image)
+                                                                            <div class="swiper-slide">
+                                                                                <img class="img-responsive m-auto"
+                                                                                     src="{{ asset('uploads/product/multiple_images') }}/{{ $product_multiple_image->product_multiple_image }}" alt="">
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             <div class="col-lg-6 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="200">
                                                                 <div class="product-details-content quickview-content">
@@ -436,23 +429,22 @@
                                                                             <i class="fa fa-star"></i>
                                                                             <i class="fa fa-star"></i>
                                                                         </div>
-                                                                        <span class="read-review"><a class="reviews" href="#">( 5 Customer Review
-                                            )</a></span>
+                                                                        <span class="read-review"><a class="reviews" href="#">( 5 Customer Review)</a></span>
                                                                     </div>
-                                                                    <p class="mt-30px mb-0"> {{$product->product_desp}} </p>
+                                                                    <p class="mt-30px mb-0"> {{ $product->product_desp }} </p>
                                                                     <div class="pro-details-quality">
                                                                         <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
+                                                                            <input class="cart-plus-minus-box cart-plus-minus" type="text" name="qtybutton" value="1" />
                                                                         </div>
                                                                         <div class="pro-details-cart">
                                                                             <button class="add-cart" href="#"> Add To
                                                                                 Cart</button>
                                                                         </div>
                                                                         <div class="pro-details-compare-wishlist pro-details-wishlist ">
-                                                                            <a href="wishlist.html"><i class="pe-7s-like"></i></a>
+                                                                            <a href="#"><i class="pe-7s-like"></i></a>
                                                                         </div>
                                                                         <div class="pro-details-compare-wishlist pro-details-compare">
-                                                                            <a href="compare.html"><i class="pe-7s-refresh-2"></i></a>
+                                                                            <a href="#"><i class="pe-7s-refresh-2"></i></a>
                                                                         </div>
                                                                     </div>
                                                                     <div class="pro-details-sku-info pro-details-same-style  d-flex">
@@ -518,39 +510,19 @@
     <!-- Banner Area Start -->
     <div class="banner-area pt-100px pb-100px plr-15px">
         <div class="row m-0">
+            @foreach($categories_active as $category)
             <div class="col-12 col-lg-4 mb-md-30px mb-lm-30px">
                 <div class="single-banner-2">
-                    <img src="{{ asset('frontend_assets') }}/images/banner/4.jpg" alt="">
+                    <img src="{{ asset('uploads/category') }}/{{ $category->category_image }}" alt="">
                     <div class="item-disc">
                         <h4 class="title">Best Collection <br>
-                            For Women</h4>
+                            For {{ $category->category_name }}</h4>
                         <a href="shop-left-sidebar.html" class="shop-link btn btn-primary ">Shop Now <i
                                 class="fa fa-shopping-basket ml-5px" aria-hidden="true"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-4 center-col mb-md-30px mb-lm-30px">
-                <div class="single-banner-2">
-                    <img src="{{ asset('frontend_assets') }}/images/banner/5.jpg" alt="">
-                    <div class="item-disc">
-                        <h4 class="title">Best Collection <br>
-                            For Men</h4>
-                        <a href="shop-left-sidebar.html" class="shop-link btn btn-primary">Shop Now <i
-                                class="fa fa-shopping-basket ml-5px" aria-hidden="true"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg-4">
-                <div class="single-banner-2">
-                    <img src="{{ asset('frontend_assets') }}/images/banner/6.jpg" alt="">
-                    <div class="item-disc">
-                        <h4 class="title">New Collection <br>
-                            For Kids</h4>
-                        <a href="shop-left-sidebar.html" class="shop-link btn btn-primary">Shop Now <i
-                                class="fa fa-shopping-basket ml-5px" aria-hidden="true"></i></a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
     <!-- Banner Area End -->

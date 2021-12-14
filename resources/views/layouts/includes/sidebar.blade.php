@@ -86,7 +86,7 @@
                                 <i class="fas fa-angle-right nav-icon"></i>
                                 <p>
                                     Main Category
-{{--                                    <span class="badge badge-info right">{{ $total_category }}</span>--}}
+                                    {{-- <span class="badge badge-info right">{{ $total_category }}</span>--}}
                                 </p>
                             </a>
                         </li>
@@ -97,6 +97,29 @@
                                     Sub-Category
 {{--                                    <span class="badge badge-danger right">{{ $total_subcategory }}</span>--}}
                                 </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item @yield('inventory_tree_menu')">
+                    <a href="#" class="nav-link  @yield('color') @yield('size')">
+                        <i class="nav-icon fas fa-layer-group"></i>
+                        <p>Inventory
+                            <i class="fas fa-angle-left right"></i> <span class="badge badge-info right">2</span>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{url('/add/color')}}" class="nav-link @yield('color')">
+                                <i class="fas fa-angle-right nav-icon"></i>
+                                <p> Add Color </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('/add/size')}}" class="nav-link @yield('size')">
+                                <i class="fas fa-angle-right nav-icon"></i>
+                                <p> Add Size</p>
                             </a>
                         </li>
                     </ul>

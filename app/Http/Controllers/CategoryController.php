@@ -101,4 +101,24 @@ class CategoryController extends Controller
         }
         return back()->with('mark_delete', 'Marked Category Deleted');
     }
+
+    // Status Function
+    public function status($category_id){
+        $status = Category::find($category_id)->status;
+        if ($status == 0){
+             $count_status_active = Category::where('status', 1)->count();
+             if ($count_status_active == 3){
+                 return back()->with('success', 'Maximum 3 Category can active');
+             }
+            Category::find($category_id)->update([
+                'status'=>1,
+            ]);
+            return back()->with('success', 'Category Active');
+        } else {
+            Category::find($category_id)->update([
+            'status'=>0,
+            ]);
+            return back()->with('success', 'Category Deactive');
+        }
+    }
 }

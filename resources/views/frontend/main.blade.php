@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/style.min.css">
 
     <!-- Main Style -->
-    <!-- <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/style.css" /> -->
+{{--    <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/style.css" />--}}
 
 </head>
 

@@ -41,6 +41,7 @@ Route::post('/category/update', [CategoryController::class, 'update']);
 Route::get('/category/restore/{category_id}', [CategoryController::class, 'restore']);
 Route::post('/category/permanent/delete/{category_id}', [CategoryController::class, 'perdelete']);
 Route::post('/mark/delete', [CategoryController::class, 'mark_delete']);
+Route::get('/category/status/{category_id}', [CategoryController::class, 'status']);
 
 //Subcategory
 Route::get('/subcategory', [SubcategoryController::class, 'index'])->name('index');
@@ -65,3 +66,10 @@ Route::get('/product/all', [ProductController::class, 'allproduct']);
 Route::get('/setting', [SettingController::class, 'index']);
 Route::post('/brand/Name', [SettingController::class, 'BrandName']);
 Route::post('/brandUpdate', [SettingController::class, 'BrandUpdate']);
+
+
+// Inventory
+Route::get('/add/color', [ProductController::class, 'AddColor']);
+Route::post('/color/insert', [ProductController::class, 'ColorInsert']);
+Route::get('/add/size', [ProductController::class, 'AddSize']);
+Route::post('/size/insert', [ProductController::class, 'SizeInsert']);

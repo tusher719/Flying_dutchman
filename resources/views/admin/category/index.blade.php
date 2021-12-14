@@ -53,7 +53,7 @@
                                 <div class="mb-1">
                                     <!-- Check all button -->
                                     <button type="button" class="btn btn-outline-primary btn-sm checkbox-toggle">
-                                        <i class="far fa-square"></i>
+                                        <i class="far fa-squared"></i>
                                     </button>
                                     <div class="btn-group">
                                         <button type="submit" class="btn btn-outline-danger btn-sm">
@@ -84,6 +84,7 @@
                                         <th>Category Name</th>
                                         <th>Category Image</th>
                                         <th>Added By</th>
+                                        <th>Status</th>
                                         <th>Created_at</th>
                                         <th>Action</th>
                                     </tr>
@@ -108,6 +109,12 @@
                                                 @endif
                                             </td>
                                             <td>{{ App\Models\User::find($category->added_by)->name }}</td>
+                                            <td>
+                                                <a href="{{ url('/category/status') }}/{{ $category->id }}"
+                                                   class="btn btn-outline-{{ ($category->status==0)?'secondary':'success' }} btn-sm">
+                                                    {{ ($category->status==0)?'Deactive':'Active' }}
+                                                </a>
+                                            </td>
                                             <td>{{ $category->created_at->diffForHumans() }}</td>
                                             <td>
                                                 <a href="{{ url('/category/edit') }}/{{ $category->id }}"

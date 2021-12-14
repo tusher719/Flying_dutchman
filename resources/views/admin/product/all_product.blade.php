@@ -67,7 +67,6 @@
                                     <th>SubCategory</th>
                                     <th>Name</th>
                                     <th>Code</th>
-                                    <th>Quantity</th>
                                     <th>Regular Price</th>
                                     <th>Discount</th>
                                     <th>Disc Price</th>
@@ -92,7 +91,6 @@
                                         <td>{{ App\Models\SubCategory::find($products->subcategory_id)->subcategory_name }}</td>
                                         <td>{{ $products->product_name }}</td>
                                         <td>{{ $products->product_code }}</td>
-                                        <td>{{ $products->product_quantity }}</td>
                                         <td>{{ $products->product_price }}</td>
                                         <td>
                                             @if( $products->discount_percentage )

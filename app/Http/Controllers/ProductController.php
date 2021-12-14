@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductThubnailMultiple;
+use App\Models\Size;
 use App\Models\SubCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -25,6 +27,46 @@ class ProductController extends Controller
             'sub_categories'=>$sub_categories,
         ]);
     }
+
+
+    // Add Color Function
+    function AddColor(){
+        $colors = Color::all();
+        return view('admin.product.color', [
+            'colors' => $colors,
+        ]);
+    }
+
+    // Color Insert Function
+    function ColorInsert(Request $request){
+        Color::insert([
+            'color_name' => $request->color_name,
+            'color_code' => $request->color_code,
+            'created_at' => Carbon::now(),
+        ]);
+        return back()->with('success', 'Color Added Successfully');
+    }
+
+
+    // Add Size Function
+    function AddSize(){
+        $sizes = Size::all();
+        return view('admin.product.size', [
+            'sizes' => $sizes,
+        ]);
+    }
+
+    // Size Insert Function
+    function SizeInsert(Request $request){
+        Size::insert([
+            'size_name' => $request->size_name,
+            'created_at' => Carbon::now(),
+        ]);
+        return back()->with('success', 'Size Added Successfully');
+    }
+
+
+
 
     function insert(Request $request){
         $discount = ($request->product_price / 100) * $request->discount_percentage;
