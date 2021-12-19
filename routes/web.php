@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,3 +84,5 @@ Route::get('/inventory/add/{product_id}', [InventoryController::class, 'AddInven
 Route::post('/inventory/insert', [InventoryController::class, 'InventoryInsert']);
 
 
+// Cart
+Route::post('add/to/cart', [CartController::class, 'AddToCart']);

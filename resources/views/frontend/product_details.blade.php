@@ -62,43 +62,44 @@
                             </div>
                             <span class="read-review"><a class="reviews" href="#">( 5 Customer Review )</a></span>
                         </div>
-                        <div class="pro-details-color-info d-flex align-items-center">
-                            <span>Color :</span>
-                            <div class="pro-details-color">
+                        <form action="{{ url('add/to/cart') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product_singles->id }}">
+                            <div class="pro-details-color-info d-flex align-items-center">
+                                <span>Color :</span>
+                                <div class="pro-details-color">
                                     <select name="color_id" id="color_list" class="form-control">
                                         <option value="">---- Select Color ----</option>
                                         @foreach($available_colors as $color)
                                             <option value="{{ $color->color_id }}">{{ App\Models\Color::find($color->color_id)->color_name }}</option>
                                         @endforeach
                                     </select>
+                                </div>
                             </div>
-                        </div>
-                        <!-- Sidebar single item -->
-                        <div class="pro-details-size-info d-flex align-items-center">
-                            <span>Size :</span>
-                            <div class="pro-details-size">
-                                <select name="color_id" id="size_list" class="form-control">
-                                    <option value="">---- Select Size ----</option>
-
-                                </select>
+                            <!-- Sidebar single item -->
+                            <div class="pro-details-size-info d-flex align-items-center">
+                                <span>Size :</span>
+                                <div class="pro-details-size">
+                                    <select name="size_id" id="size_list" class="form-control">
+                                        <option value="">---- Select Size ----</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="pro-details-size-info d-flex align-items-center">
-                            <span class="text-success">In Stoke :</span>
-                            <div class="pro-details-size">
-                                120
+                            <div class="pro-details-size-info d-flex align-items-center">
+                                <span class="text-success">In Stoke :</span>
+                                <div class="pro-details-size">
+                                    120
+                                </div>
                             </div>
-                        </div>
-                        <p class="m-0">{{ $product_singles->product_desp }}</p>
-                        <div class="pro-details-quality">
-                            <div class="cart-plus-minus">
-                                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
-                            </div>
-                            <div class="pro-details-cart">
-                                <button class="add-cart" href="#"> Add To
-                                    Cart</button>
-                            </div>
+                            <p class="m-0">{{ $product_singles->product_desp }}</p>
+                            <div class="pro-details-quality">
+                                <div class="cart-plus-minus">
+                                    <input class="cart-plus-minus-box" type="text" name="quantity" value="1" />
+                                </div>
+                                <div class="pro-details-cart">
+                                    <button class="add-cart" href="#"> Add To Cart</button>
+                                </div>
+                        </form>
                             <div class="pro-details-compare-wishlist pro-details-wishlist ">
                                 <a href="wishlist.html"><i class="pe-7s-like"></i></a>
                             </div>

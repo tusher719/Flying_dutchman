@@ -133,8 +133,6 @@
                 <!-- Header Action Start -->
                 <div class="col col-lg-auto align-self-center pl-0">
                     <div class="header-actions">
-                        <a href="{{ url('/category') }}" class="header-action-btn login-btn" data-bs-toggle="modal"
-                           data-bs-target="#loginActive">Dashboard</a>
                         <a href="login.html" class="header-action-btn login-btn" data-bs-toggle="modal"
                            data-bs-target="#loginActive">Sign In</a>
                         <!-- Single Wedge Start -->
@@ -150,7 +148,7 @@
                         <a href="#offcanvas-cart"
                            class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                             <i class="pe-7s-shopbag"></i>
-                            <span class="header-action-num">01</span>
+                            <span class="header-action-num">{{ \App\Models\Cart::count() }}</span>
                             <!-- <span class="cart-amount">€30.00</span> -->
                         </a>
                         <a href="#offcanvas-mobile-menu"
@@ -221,33 +219,15 @@
         </div>
         <div class="body customScroll">
             <ul class="minicart-product-list">
-                <li>
-                    <a href="single-product.html" class="image"><img src="{{ asset('frontend_assets') }}/images/product-image/1.jpg"
-                                                                     alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.html" class="title">Women's Elizabeth Coat</a>
-                        <span class="quantity-price">1 x <span class="amount">$18.86</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.html" class="image"><img src="{{ asset('frontend_assets') }}/images/product-image/2.jpg"
-                                                                     alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.html" class="title">Long sleeve knee length</a>
-                        <span class="quantity-price">1 x <span class="amount">$43.28</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.html" class="image"><img src="{{ asset('frontend_assets') }}/images/product-image/3.jpg"
-                                                                     alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.html" class="title">Cool Man Wearing Leather</a>
-                        <span class="quantity-price">1 x <span class="amount">$37.34</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
+                @foreach(\App\Models\Cart::where('user_id', Auth::id())->get() as $cart)
+                    <li>
+                        <a href="single-product.html" class="image"><img src="{{ asset('uploads/product') }}/{{ \App\Models\Product::find($cart->product_id)->product_thumbnail }}" alt="Cart product Image"></a>
+                        <div class="content">
+                            <a href="single-product.html" class="title">{{ \App\Models\Product::find($cart->product_id)->product_name }}</a>
+                            <span class="quantity-price">{{ $cart->quantity }} x <span class="amount">BDT {{ \App\Models\Product::find($cart->product_id)->product_price }}</span></span>
+                        </div>
+                    </li>
+                @endforeach
             </ul>
         </div>
         <div class="foot">
