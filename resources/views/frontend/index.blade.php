@@ -151,7 +151,7 @@
                                         <!-- Single Prodect -->
                                         <div class="product">
                                             <div class="thumb">
-                                                <a href="#" class="image">
+                                                <a href="{{ route('details', $product->id) }}" class="image">
                                                     <img src="{{ asset('uploads/product') }}/{{ $product->product_thumbnail }}" alt="Product" />
                                                 </a>
                                                 <span class="badges">
@@ -195,8 +195,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
                                     <!-- All Product Modal -->
                                     <div class="modal modal-2 fade" id="prod{{ $product->id }}" tabindex="-1" role="dialog">
                                         <div class="modal-dialog" role="document">

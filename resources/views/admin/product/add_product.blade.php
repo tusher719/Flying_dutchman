@@ -55,9 +55,9 @@
                                         <label for="">SubCategory Select</label>
                                         <select name="subcategory_id" class="form-control">
                                             <option value="">----- Select Option -----</option>
-                                            @foreach($sub_categories as $subcategory)
-                                                <option value="{{$subcategory->id}}">{{ $subcategory->subcategory_name }}</option>
-                                            @endforeach
+{{--                                            @foreach($sub_categories as $subcategory)--}}
+{{--                                                <option value="{{$subcategory->id}}">{{ $subcategory->subcategory_name }}</option>--}}
+{{--                                            @endforeach--}}
                                         </select>
                                     </div>
                                 </div>
@@ -65,12 +65,6 @@
                                     <div class="form-group">
                                         <label for="">Product Name</label>
                                         <input type="text" name="product_name" class="form-control" placeholder="Enter product name">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="">Product Code</label>
-                                        <input type="text" name="product_code" class="form-control" placeholder="Enter product code">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -115,7 +109,7 @@
     </div>
 @endsection
 @section('footer_script')
-    <script>
+    <script type="text/javascript">
         @if (session('add_product'))
         const Toast = Swal.mixin({
                 toast: true,
@@ -134,5 +128,30 @@
             title: '{{ session('add_product') }}'
         })
         @endif
+
+
+
+        // SubCategory Show Ajax Function
+        {{--$(document).ready(function () {--}}
+        {{--    $('select[name="category_id"]').on('change', function () {--}}
+        {{--        var category_id = $(this).val();--}}
+        {{--        if (category_id) {--}}
+        {{--            $.ajax({--}}
+        {{--                url: "{{ url('/subcategory/ajax') }}/"+category_id,--}}
+        {{--                type: "GET",--}}
+        {{--                dataType: "json",--}}
+        {{--                success:function (data) {--}}
+        {{--                    var d =$('select[name="subcategory_id"]').empty();--}}
+        {{--                    $.each(data, function (key, value) {--}}
+        {{--                        $.('select[name="subcategory_id"]').append('<option value="'+ value.id +'">' + value.subcategory_name + '</option>');--}}
+        {{--                    });--}}
+        {{--                },--}}
+        {{--            });--}}
+        {{--        } else {--}}
+        {{--            alert('danger');--}}
+        {{--        }--}}
+        {{--    });--}}
+        {{--});--}}
     </script>
 @endsection
+

@@ -41,9 +41,12 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed dark-mode sidebar-collapse">
-    <div class="wrapper">
 
-        <!-- Preloader -->
+
+<div class="cursor"></div>
+<div class="cursor2"></div>
+<div class="wrapper">
+    <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
 {{--            <img class="animation__shake" src="{{ asset('dashboard') }}/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">--}}
             <div class="reactor">

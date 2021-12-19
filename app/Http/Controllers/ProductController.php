@@ -10,6 +10,7 @@ use App\Models\Size;
 use App\Models\SubCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
@@ -31,7 +32,7 @@ class ProductController extends Controller
 
     // Add Color Function
     function AddColor(){
-        $colors = Color::all();
+        $colors = Color::orderBy('color_name')->get();
         return view('admin.product.color', [
             'colors' => $colors,
         ]);
@@ -69,17 +70,18 @@ class ProductController extends Controller
 
 
     function insert(Request $request){
+        $product_code = Str::random(2).'-'.rand(0,99999).Str::random(2);
         $discount = ($request->product_price / 100) * $request->discount_percentage;
         $product_id = Product::insertGetId([
-           'category_id'=>$request->category_id,
-           'subcategory_id'=>$request->subcategory_id,
-           'product_name'=>$request->product_name,
-           'product_code'=>$request->product_code,
-           'product_price'=>$request->product_price,
-           'discount_percentage'=>$request->discount_percentage,
-           'discount_price'=>$request->product_price - $discount,
-           'product_desp'=>$request->product_desp,
-           'created_at'=>Carbon::now(),
+           'category_id' => $request->category_id,
+           'subcategory_id' => $request->subcategory_id,
+           'product_name' => $request->product_name,
+           'product_code'=> $product_code,
+           'product_price' => $request->product_price,
+           'discount_percentage' => $request->discount_percentage,
+           'discount_price' => $request->product_price - $discount,
+           'product_desp' => $request->product_desp,
+           'created_at' => Carbon::now(),
         ]);
 
         $new_product_photo = $request->product_thumbnail;
@@ -112,4 +114,12 @@ class ProductController extends Controller
             'all_products'=>$all_products,
         ]);
     }
+
+
+
+    // Ajax Function
+//    public function GetSubCategory($category_id){
+//        $subcat = SubCategory::where('category_id', $category_id)->orderBy('subcategory_name', 'ASC')->get();
+//        return json_encode($subcat);
+//    }
 }

@@ -112,9 +112,9 @@
                                         </td>
                                         <td>{{ $products->created_at->diffForHumans() }}</td>
                                         <td>
-                                            <a href="{{ url('/subcategory/edit') }}/{{ $products->id }}"
-                                               class="btn btn-outline-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                <i class="far fa-edit"></i>
+                                            <a href="{{ url('/inventory/add') }}/{{ $products->id }}"
+                                               class="btn btn-outline-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Inventory">
+                                                <i class="fas fa-dolly-flatbed"></i>
                                             </a>
 
                                             <a href="#" onclick="deleteCategory({{ $products->id }});"

@@ -2,10 +2,11 @@
 <html lang="zxx">
 
 
-<!-- Mirrored from template.hasthemes.com/jesco/jesco/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 Sep 2021 07:18:43 GMT -->
+<!-- Mirrored from template.hasthemes.com/jesco/jesco/single-product-variable.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 Sep 2021 07:19:33 GMT -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="robots" content="index, follow" />
     <title>Jesco - Fashoin eCommerce HTML Template</title>
     <meta name="description" content="Jesco - Fashoin eCommerce HTML Template" />
@@ -16,16 +17,16 @@
 
 
     <!-- vendor css (Icon Font) -->
-    <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/vendor/bootstrap.bundle.min.css" />
-    <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/vendor/pe-icon-7-stroke.css" />
-    <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/vendor/font.awesome.css" />
+    <!-- <link rel="stylesheet" href="assets/css/vendor/bootstrap.bundle.min.css" />
+    <link rel="stylesheet" href="assets/css/vendor/pe-icon-7-stroke.css" />
+    <link rel="stylesheet" href="assets/css/vendor/font.awesome.css" /> -->
 
     <!-- plugins css (All Plugins Files) -->
-    <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/plugins/animate.css" />
-    <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/plugins/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/plugins/jquery-ui.min.css" />
-    <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/plugins/nice-select.css" />
-    <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/plugins/venobox.css" />
+    <!-- <link rel="stylesheet" href="assets/css/plugins/animate.css" />
+    <link rel="stylesheet" href="assets/css/plugins/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="assets/css/plugins/jquery-ui.min.css" />
+    <link rel="stylesheet" href="assets/css/plugins/nice-select.css" />
+    <link rel="stylesheet" href="assets/css/plugins/venobox.css" /> -->
 
     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
     <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/vendor/vendor.min.css" />
@@ -33,12 +34,13 @@
     <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/style.min.css">
 
     <!-- Main Style -->
-{{--    <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/style.css" />--}}
+    <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/main.css" />
 
 </head>
 
 <body>
-
+<div class="cursor"></div>
+<div class="cursor2"></div>
 <!-- Top Bar -->
 
 <div class="header-to-bar"> HELLO EVERYONE! 25% Off All Products </div>
@@ -699,6 +701,7 @@
 <!-- Global Vendor, plugins JS -->
 
 <!-- Vendor JS -->
+<!-- Vendor JS -->
 <script src="{{ asset('frontend_assets') }}/js/vendor/jquery-3.6.0.min.js"></script>
 <script src="{{ asset('frontend_assets') }}/js/vendor/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('frontend_assets') }}/js/vendor/jquery-migrate-3.3.2.min.js"></script>
@@ -720,8 +723,10 @@
 
 <!-- Main Js -->
 <script src="{{ asset('frontend_assets') }}/js/main.js"></script>
+<script src="{{ asset('frontend_assets') }}/js/script.js"></script>
+@yield('footer_script')
 </body>
 
 
-<!-- Mirrored from template.hasthemes.com/jesco/jesco/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 Sep 2021 07:19:21 GMT -->
+<!-- Mirrored from template.hasthemes.com/jesco/jesco/single-product-variable.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 Sep 2021 07:19:33 GMT -->
 </html>

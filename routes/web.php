@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\InventoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,8 @@ Auth::routes();
 // Frontend
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', [FrontendController::class, 'welcome']);
+Route::get('/product/details/{product_id}', [FrontendController::class, 'ProductDetails'])->name('details');
+Route::post('/getsize', [FrontendController::class, 'getsize']);
 
 // Category
 Route::get('/user', [UserController::class, 'user'])->name('user');
@@ -49,6 +52,7 @@ Route::post('/subcategory/insert', [SubcategoryController::class, 'insert'])->na
 Route::post('/subcategory/delete/{subcategory_id}', [SubcategoryController::class, 'delete']);
 Route::get('/subcategory/edit/{subcategory_id}', [SubcategoryController::class, 'edit']);
 Route::post('/subcategory/update', [SubcategoryController::class, 'update']);
+//Route::post('/subcategory/ajax/{category_id}', [SubcategoryController::class, 'GetSubCategory']);
 
 //Profile
 Route::get('/profile', [ProfileController::class, 'index']);
@@ -60,6 +64,8 @@ Route::post('/photo/update', [ProfileController::class, 'photoupdate']);
 Route::get('/product/add', [ProductController::class, 'index']);
 Route::post('/product/insert', [ProductController::class, 'insert']);
 Route::get('/product/all', [ProductController::class, 'allproduct']);
+//Route::post('/subcategory/ajax/{category_id}', [ProductController::class, 'GetSubCategory']);
+
 
 
 // Setting
@@ -73,3 +79,7 @@ Route::get('/add/color', [ProductController::class, 'AddColor']);
 Route::post('/color/insert', [ProductController::class, 'ColorInsert']);
 Route::get('/add/size', [ProductController::class, 'AddSize']);
 Route::post('/size/insert', [ProductController::class, 'SizeInsert']);
+Route::get('/inventory/add/{product_id}', [InventoryController::class, 'AddInventory']);
+Route::post('/inventory/insert', [InventoryController::class, 'InventoryInsert']);
+
+

@@ -77,7 +77,33 @@
 
 
 
-
+/* Cursor Customize */
+.cursor{
+    position: fixed;
+    width: 45px;
+    height: 45px;
+    border: 1px solid #f7b900;
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: 0.1s;
+    z-index: 9999;
+}
+.cursor2{
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: #ff5500;
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: 0.15s;
+    z-index: 9999;
+}
 
 
 

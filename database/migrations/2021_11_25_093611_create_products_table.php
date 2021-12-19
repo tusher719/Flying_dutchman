@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->integer('category_id');
             $table->integer('subcategory_id');
             $table->string('product_name');
-            $table->integer('product_code');
+            $table->string('product_code');
             $table->integer('product_price');
             $table->integer('discount_percentage');
             $table->integer('discount_price');

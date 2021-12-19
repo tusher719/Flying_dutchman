@@ -79,7 +79,7 @@
                                         </div>
                                     </td>
                                     <td>{{ $loop->index+1 }}</td>
-                                    <td>{{ $color->color_name }}</td>
+                                    <td style="text-transform: capitalize;">{{ $color->color_name }}</td>
                                     <td>
                                         <p style="background: #{{ $color->color_code }}; height: 20px; width: 40%"></p>
                                         </td>
