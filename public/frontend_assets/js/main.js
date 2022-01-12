@@ -10,7 +10,7 @@
         $body = $("body");
 
     /*----------------------------------------
-            Background Image             
+            Background Image
     -------------------------------------------*/
 
     $('[data-bg-image]').each(function () {
@@ -247,7 +247,7 @@
     });
 
     /*---------------------------
-        Quick view Slider 
+        Quick view Slider
     ------------------------------ */
     var galleryThumb = new Swiper('.gallery-thumbs', {
         spaceBetween: 10,
@@ -265,7 +265,7 @@
     });
 
     /*---------------------------
-        Product Details Slider 
+        Product Details Slider
     ------------------------------ */
     var zoomThumb = new Swiper('.zoom-thumbs', {
         spaceBetween: 10,
@@ -278,12 +278,12 @@
         spaceBetween: 0,
         slidesPerView: 1,
         thumbs: {
-            swiper: zoomThumb
+            // swiper: zoomThumb
         }
     });
 
     /*---------------------------
-        Product Details Slider 
+        Product Details Slider
     ------------------------------ */
     var zoomThumb = new Swiper('.zoom-thumbs-2', {
         spaceBetween: 0,
@@ -307,8 +307,8 @@
         Cart Plus Minus Button
     ------------------------------ */
     var CartPlusMinus = $(".cart-plus-minus");
-    CartPlusMinus.prepend('<div class="dec qtybutton">-</div>');
-    CartPlusMinus.append('<div class="inc qtybutton">+</div>');
+    CartPlusMinus.prepend('<button type="button" class="dec qtybutton">-</button>');
+    CartPlusMinus.append('<button type="button" class="inc qtybutton">+</button>');
     $(".qtybutton").on("click", function () {
         var $button = $(this);
         var oldValue = $button.parent().find("input").val();
@@ -323,6 +323,8 @@
             }
         }
         $button.parent().find("input").val(newVal);
+        var currentRow = $(this).closest('tr');
+        var col = currentRow.find('td:eq(4)').text(newVal);
     });
 
 
@@ -396,7 +398,7 @@
     });
 
     /*-----------------------------
-        Blog Gallery Slider 
+        Blog Gallery Slider
     -------------------------------- */
     var swiper = new Swiper(".blog-post-media.swiper-container", {
         slidesPerView: 1,
@@ -444,7 +446,7 @@
     });
 
     /*---------------------------
-          Nice Select 
+          Nice Select
        ------------------------------ */
 
     $('.shop-sort').niceSelect();

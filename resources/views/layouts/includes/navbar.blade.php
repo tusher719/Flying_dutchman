@@ -155,8 +155,7 @@
                     <i class="fas fa-cogs mr-2"></i> Setting
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="{{ route('logout') }}" class="dropdown-item mb-1" onclick="event.preventDefault();
-                                                                                                         document.getElementById('logout-form').submit();">
+                <a href="{{ route('logout') }}" class="dropdown-item mb-1" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fas fa-sign-out-alt mr-2"></i> Log Out
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST"

@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="{{ asset('dashboard') }}/plugins/toastr/toastr.min.css">
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed dark-mode sidebar-collapse">
+<body class="hold-transition sidebar-mini layout-fixed dark-mode">
 
 
 <div class="cursor"></div>
@@ -144,6 +144,7 @@
     <script src="{{ asset('dashboard') }}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="{{ asset('dashboard') }}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="{{ asset('dashboard') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="{{ asset('dashboard') }}/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <!-- SweetAlert2 -->
     <script src="{{ asset('dashboard') }}/plugins/sweetalert2/sweetalert2.min.js"></script>
     <!-- Toastr -->

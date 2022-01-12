@@ -180,14 +180,14 @@
                                                 <span class="price">
                                                     <span class="new">
                                                         @if($product->discount_percentage)
-                                                            ${{ $product->discount_price }}
+                                                            ৳ {{ $product->discount_price }}
                                                         @else()
-                                                            ${{ $product->product_price }}
+                                                            ৳ {{ $product->product_price }}
                                                         @endif
 
-                                                            @if($product->discount_percentage)
+                                                        @if($product->discount_percentage)
                                                                 <span class="old">
-                                                                    ${{ $product->product_price }}
+                                                                    ৳ {{ $product->product_price }}
                                                                 </span>
                                                             @endif
                                                     </span>
@@ -231,9 +231,9 @@
                                                                     <ul>
                                                                         <li class="old-price not-cut">
                                                                             @if($product->discount_percentage)
-                                                                                ${{ $product->discount_price }}
+                                                                                ৳ {{ $product->discount_price }}
                                                                             @else()
-                                                                                ${{ $product->product_price }}
+                                                                                ৳ {{ $product->product_price }}
                                                                             @endif
                                                                         </li>
                                                                     </ul>
@@ -328,7 +328,7 @@
                                             <!-- Single Prodect -->
                                             <div class="product">
                                                 <div class="thumb">
-                                                    <a href="#" class="image">
+                                                    <a href="{{ route('details', $product->id) }}" class="image">
                                                         <img src="{{ asset('uploads/product') }}/{{ $product->product_thumbnail }}" alt="Product" />
                                                     </a>
                                                     <span class="badges">

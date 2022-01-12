@@ -26,13 +26,25 @@
 
 {{--Main Content--}}
 @section('content')
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-10 m-auto">
+                <div class="col-lg-8">
 
                     <div class="card card-success card-outline">
                         <div class="card-header">
-                                <h5>Welcome, <span class="badge badge-info">{{ Auth::user()->name }}</span></h5>
+                                <h4 class="card-title">Welcome, <span class="badge badge-warning">{{ Auth::user()->name }}</span> <i class="fas fa-angle-double-right"></i>
+                                    <span>
+                                        @if(Auth::user()->role == 1)
+                                            <span class="badge badge-success">Admin</span>
+                                        @elseif(Auth::user()->role == 2)
+                                            <span class="badge badge-primary">Moderator</span>
+                                        @elseif(Auth::user()->role == 3)
+                                            <span class="badge badge-info">Shopkeeper</span>
+                                        @else
+                                            <span class="badge badge-secondary">User</span>
+                                        @endif
+                                    </span>
+                                </h4>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -65,6 +77,7 @@
                                         <th>Image</th>
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Role</th>
                                         <th>Created_at</th>
                                     </tr>
                                     </thead>
@@ -85,6 +98,17 @@
                                             </td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
+                                            <td>
+                                                @if($user->role == 1)
+                                                    <span class="badge badge-success">Admin</span>
+                                                @elseif($user->role == 2)
+                                                    <span class="badge badge-primary">Moderator</span>
+                                                @elseif($user->role == 3)
+                                                    <span class="badge badge-info">Shopkeeper</span>
+                                                @else
+                                                    <span class="badge badge-secondary">User</span>
+                                                @endif
+                                            </td>
                                             <td>{{ $user->created_at->diffForHumans() }}</td>
                                         </tr>
                                     @endforeach
@@ -96,10 +120,73 @@
                     </div>
                     <!-- /.card -->
                 </div>
+                <div class="col-lg-4">
+                    <div class="card card-info card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">Add User</h3>
+                        </div>
+                        <div class="card-body">
+                            <form action="{{ route('insert_user') }}" method="post">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="">Name</label>
+                                    <input type="text" name="name" class="form-control" placeholder="Enter Name...">
+                                    @error('name')
+                                    <strong class="text-danger text-sm">{{ $message }}</strong>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Email</label>
+                                    <input type="email" name="email" class="form-control" placeholder="Enter Email...">
+                                    @error('email')
+                                    <strong class="text-danger text-sm">{{ $message }}</strong>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Password</label>
+                                    <input type="password" name="password" class="form-control" placeholder="Enter Password...">
+                                    @error('password')
+                                    <strong class="text-danger text-sm">{{ $message }}</strong>
+                                    @enderror
+                                </div>
+                                <div class="from-group">
+                                    <select name="role" class="form-control">
+                                        <option value=""> ==== Select Role ====</option>
+                                        <option value="1">Admin</option>
+                                        <option value="2">Moderator</option>
+                                        <option value="3">Shopkeeper</option>
+                                    </select>
+                                </div>
+                                <div class="from-group mt-3 text-center">
+                                    <button type="submit" class="btn btn-outline-info">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 <!-- /.col -->
             </div>
             <!-- /.row -->
         </div>
         <!-- /.container-fluid -->
 @endsection
+@section('footer_script')
+    @if (session('success'))
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+        })
 
+        Toast.fire({
+        icon: 'success',
+        title: '{{ session('success') }}'
+        })
+    @endif
+@endsection

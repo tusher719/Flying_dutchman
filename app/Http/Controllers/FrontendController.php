@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Country;
 use App\Models\Inventory;
 use App\Models\Product;
 use App\Models\Size;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
@@ -31,7 +34,7 @@ class FrontendController extends Controller
         ]);
     }
 
-    // Ajax Function
+    // Color $ size Ajax Function
     function getsize(Request $request){
         $sizes = Inventory::where([
             'product_id' => $request->product_id,
@@ -43,6 +46,43 @@ class FrontendController extends Controller
             $str_to_send .= '<option value="'.$size->size_id.'">'.$size_name.'</option>';
         };
         echo $str_to_send;
+    }
+
+
+    // Quantity Ajax Function
+    public function GetQuantity(Request $request){
+//        return $request->size_id;
+//        return $request->color_id;
+
+        $quantity = Inventory::where([
+            'size_id' => $request->size_id,
+            'color_id' => $request->color_id,
+        ])->first(['quantity']);
+        return $quantity->quantity;
+    }
+
+
+    // Checkout View
+    public function Checkout() {
+        $countries = Country::select('id', 'name')->get();
+        $carts = Cart::where('user_id', Auth::id())->get();
+        return view('frontend.checkout', [
+            'countries' => $countries,
+            'carts' => $carts,
+        ]);
+    }
+
+    // 404 Not Found View
+    public function NotFound() {
+        return view('404');
+    }
+
+    // My Account View
+    public function MyAccount() {
+        $user_info = Auth::user();
+        return view('frontend.myaccount', [
+            'user_info' => $user_info,
+        ]);
     }
 
 }

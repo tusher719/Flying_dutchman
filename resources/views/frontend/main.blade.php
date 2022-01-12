@@ -12,9 +12,11 @@
     <meta name="description" content="Jesco - Fashoin eCommerce HTML Template" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
+    <!-- Select2 Github -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     <!-- Add site Favicon -->
     <link rel="shortcut icon" href="{{ asset('frontend_assets') }}/images/favicon/favicon.ico" type="image/png">
-
 
     <!-- vendor css (Icon Font) -->
     <!-- <link rel="stylesheet" href="assets/css/vendor/bootstrap.bundle.min.css" />
@@ -53,7 +55,7 @@
             <div class="row">
                 <div class="col-auto align-self-center">
                     <div class="header-logo">
-                        <a href="index.html"><img src="{{ asset('frontend_assets') }}/images/logo/logo.png" alt="Site Logo" /></a>
+                        <a href="{{ url('/') }}"><img src="{{ asset('frontend_assets') }}/images/logo/logo.png" alt="Site Logo" /></a>
                     </div>
                 </div>
                 <div class="col align-self-center d-none d-lg-block">
@@ -61,7 +63,7 @@
                         <ul>
                             <li class="dropdown"><a href="#">Home <i class="pe-7s-angle-down"></i></a>
                                 <ul class="sub-menu">
-                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="{{ url('/') }}">Home</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown position-static"><a href="#">Shop <i
@@ -133,8 +135,16 @@
                 <!-- Header Action Start -->
                 <div class="col col-lg-auto align-self-center pl-0">
                     <div class="header-actions">
-                        <a href="login.html" class="header-action-btn login-btn" data-bs-toggle="modal"
-                           data-bs-target="#loginActive">Sign In</a>
+                        @auth
+                            @if(Auth::user()->role != 0)
+                            <a href="{{ route('home') }}" class="header-action-btn login-btn">Dashboard</a>
+                            @else
+                            <a href="{{ route('my_account') }}" class="header-action-btn login-btn">My Account</a>
+                            @endif
+                        @else
+                            <a href="{{ url('login') }}" class="header-action-btn login-btn">Sign In</a>
+                        @endauth
+{{--                            <a href="login.html" class="header-action-btn login-btn" data-bs-toggle="modal" data-bs-target="#loginActive">Sign In</a>--}}
                         <!-- Single Wedge Start -->
                         <a href="#" class="header-action-btn" data-bs-toggle="modal" data-bs-target="#searchActive">
                             <i class="pe-7s-search"></i>
@@ -148,7 +158,13 @@
                         <a href="#offcanvas-cart"
                            class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                             <i class="pe-7s-shopbag"></i>
-                            <span class="header-action-num">{{ \App\Models\Cart::count() }}</span>
+                            <span class="header-action-num">
+                                @auth()
+                                    {{ sprintf('%02d', App\Models\Cart::where('user_id', Auth::id())->count()) }}
+                                @else
+                                0
+                                @endauth
+                            </span>
                             <!-- <span class="cart-amount">€30.00</span> -->
                         </a>
                         <a href="#offcanvas-mobile-menu"
@@ -219,21 +235,47 @@
         </div>
         <div class="body customScroll">
             <ul class="minicart-product-list">
-                @foreach(\App\Models\Cart::where('user_id', Auth::id())->get() as $cart)
+                @forelse(\App\Models\Cart::where('user_id', Auth::id())->latest()->get() as $cart)
                     <li>
                         <a href="single-product.html" class="image"><img src="{{ asset('uploads/product') }}/{{ \App\Models\Product::find($cart->product_id)->product_thumbnail }}" alt="Cart product Image"></a>
                         <div class="content">
                             <a href="single-product.html" class="title">{{ \App\Models\Product::find($cart->product_id)->product_name }}</a>
-                            <span class="quantity-price">{{ $cart->quantity }} x <span class="amount">BDT {{ \App\Models\Product::find($cart->product_id)->product_price }}</span></span>
+                            <span class="quantity-price">
+                                {{ $cart->quantity }} x
+                                <span class="amount fw-bold">
+                                    @if(App\Models\Product::find($cart->product_id)->discount_percentage)
+                                        ৳ {{ App\Models\Product::find($cart->product_id)->discount_price }}
+                                    @else
+                                        ৳ {{ App\Models\Product::find($cart->product_id)->product_price }}
+                                    @endif
+                                </span>
+                            </span>
+                            <del class="text-gray" style="font-style: 13px; font-style: italic">
+                                @if(App\Models\Product::find($cart->product_id)->discount_percentage)
+                                    <span class="old text-cyan">
+                                        ৳ {{ App\Models\Product::find($cart->product_id)->product_price }}
+                                    </span>
+                                @endif
+                            </del>
+                            <span class="fw-bolder">
+                                @if(App\Models\Product::find($cart->product_id)->discount_percentage)
+                                    (-{{ App\Models\Product::find($cart->product_id)->discount_percentage }}%)
+                                @endif
+                            </span>
+                            <a href="{{ route('cart.remove', $cart->id) }}" class="remove">x</a>
                         </div>
                     </li>
-                @endforeach
+                @empty
+                    <h4 class="text-danger text-center">
+                        Product Not Available <br>
+                        ¯\_(ツ)_/¯
+                    </h4>
+                @endforelse
             </ul>
         </div>
         <div class="foot">
             <div class="buttons mt-30px">
-                <a href="cart.html" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
-                <a href="checkout.html" class="btn btn-outline-dark current-btn">checkout</a>
+                <a href="{{ route('cart', '') }}" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
             </div>
         </div>
     </div>
@@ -250,7 +292,7 @@
             <ul>
                 <li><a href="#"><span class="menu-text">Home</span></a>
                     <ul class="sub-menu">
-                        <li><a href="index.html"><span class="menu-text">Home 1</span></a></li>
+                        <li><a href="{{ url('/') }}"><span class="menu-text">Home 1</span></a></li>
                         <li><a href="index-2.html"><span class="menu-text">Home 2</span></a></li>
                     </ul>
                 </li>
@@ -364,7 +406,7 @@
                     <div class="col-md-6 col-lg-3 mb-md-30px mb-lm-30px">
                         <div class="single-wedge">
                             <div class="footer-logo">
-                                <a href="index.html"><img src="{{ asset('frontend_assets') }}/images/logo/logo-white.png" alt=""></a>
+                                <a href="{{ url('/') }}"><img src="{{ asset('frontend_assets') }}/images/logo/logo-white.png" alt=""></a>
                             </div>
                             <p class="about-text">Lorem ipsum dolor sit amet consectet adipisicing elit, sed do
                                 eiusmod templ incididunt ut labore et dolore magnaol aliqua Ut enim ad minim.
@@ -436,7 +478,7 @@
                             <div class="footer-links">
                                 <div class="footer-row">
                                     <ul class="align-items-center">
-                                        <li class="li"><a class="single-link" href="index.html">Jesco</a>
+                                        <li class="li"><a class="single-link" href="{{ url('/') }}">Jesco</a>
                                         </li>
                                         <li class="li"><a class="single-link" href="shop-left-sidebar.html">Shop</a>
                                         </li>
@@ -700,6 +742,9 @@
 <!-- Use the minified version files listed below for better performance and remove the files listed above -->
 <script src="{{ asset('frontend_assets') }}/js/vendor/vendor.min.js"></script>
 <script src="{{ asset('frontend_assets') }}/js/plugins/plugins.min.js"></script>
+
+<!-- Select2 Github -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <!-- Main Js -->
 <script src="{{ asset('frontend_assets') }}/js/main.js"></script>

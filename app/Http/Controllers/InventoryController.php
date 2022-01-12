@@ -11,12 +11,17 @@ use Illuminate\Http\Request;
 
 class InventoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     // Inverntory View
     function AddInventory($product_id){
 
         $inventorys = Inventory::where('product_id', $product_id)->latest()->get();
         $product_name = Product::find($product_id)->product_name;
-        $colors = Color::all();
+        $colors = Color::orderBy('color_name')->get();
         $sizes = Size::all();
         return view('admin.product.add_inventory', [
             'inventorys' => $inventorys,

@@ -55,9 +55,9 @@
                                         <label for="">SubCategory Select</label>
                                         <select name="subcategory_id" class="form-control">
                                             <option value="">----- Select Option -----</option>
-{{--                                            @foreach($sub_categories as $subcategory)--}}
-{{--                                                <option value="{{$subcategory->id}}">{{ $subcategory->subcategory_name }}</option>--}}
-{{--                                            @endforeach--}}
+                                            @foreach($sub_categories as $subcategory)
+                                                <option value="{{$subcategory->id}}">{{ $subcategory->subcategory_name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -87,12 +87,22 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="">Main Thumbnail</label>
-                                        <input type="file" name="product_thumbnail" class="form-control">
+                                        <label for="customFile">Main Thumbnail</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" >
+                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                        </div>
+{{--                                        <label for="">Main Thumbnail</label>--}}
+{{--                                        <input type="file" name="product_thumbnail" class="form-control">--}}
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
+{{--                                        <label for="customFile">Multiple Thumbnail</label>--}}
+{{--                                        <div class="custom-file">--}}
+{{--                                            <input type="file" class="custom-file-input" id="customFile">--}}
+{{--                                            <label class="custom-file-label" for="customFile" multiple>Choose file</label>--}}
+{{--                                        </div>--}}
                                         <label for="">Multiple Thumbnail</label>
                                         <input type="file" name="product_multiple[]" class="form-control" multiple>
                                     </div>
@@ -109,6 +119,7 @@
     </div>
 @endsection
 @section('footer_script')
+
     <script type="text/javascript">
         @if (session('add_product'))
         const Toast = Swal.mixin({
@@ -152,6 +163,11 @@
         {{--        }--}}
         {{--    });--}}
         {{--});--}}
+
+
+        $(function () {
+            bsCustomFileInput.init();
+        });
     </script>
 @endsection
 

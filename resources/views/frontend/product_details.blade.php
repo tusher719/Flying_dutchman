@@ -9,7 +9,9 @@
                     <!-- breadcrumb-list start -->
                     <ul class="breadcrumb-list">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Products Details</li>
+                        <li class="breadcrumb-item"><a href="#">{{ \App\Models\Category::find($product_singles->category_id)->category_name }}</a></li>
+                        <li class="breadcrumb-item"><a href="#">{{ \App\Models\SubCategory::find($product_singles->subcategory_id)->subcategory_name }}</a></li>
+                        <li class="breadcrumb-item active">{{ $product_singles->product_name }}</li>
                     </ul>
                     <!-- breadcrumb-list end -->
                 </div>
@@ -49,8 +51,30 @@
                         <h2>{{ $product_singles->product_name }}</h2>
                         <div class="pricing-meta">
                             <ul>
-                                <li class="old-price cut">BDT {{ $product_singles->product_price }}</li>
+                                <li class="old-price cut">
+                                    @if($product_singles->discount_percentage)
+                                        ৳ {{ $product_singles->discount_price }}
+                                    @else()
+                                        ৳ {{ $product_singles->product_price }}
+                                    @endif
+                                </li>
                             </ul>
+                        </div>
+                        <div class="mb-3">
+                            <span class="text-gray">
+                                <del>
+                                    @if($product_singles->discount_percentage)
+                                        ৳ {{ $product_singles->product_price }}
+                                    @endif
+                                </del>
+                            </span>
+                            <span class="text-danger">
+                                @if($product_singles->discount_percentage)
+                                    <span class="old">
+                                            -{{ $product_singles->discount_percentage }}%
+                                        </span>
+                                @endif
+                            </span>
                         </div>
                         <div class="pro-details-rating-wrap">
                             <div class="rating-product">
@@ -86,15 +110,15 @@
                                 </div>
                             </div>
                             <div class="pro-details-size-info d-flex align-items-center">
-                                <span class="text-success">In Stoke :</span>
+                                <span class="text-success">In Stoke : </span>
                                 <div class="pro-details-size">
-                                    120
+                                    <span id="quantity"></span>
                                 </div>
                             </div>
                             <p class="m-0">{{ $product_singles->product_desp }}</p>
                             <div class="pro-details-quality">
                                 <div class="cart-plus-minus">
-                                    <input class="cart-plus-minus-box" type="text" name="quantity" value="1" />
+                                    <input class="cart-plus-minus-box quantity" type="text" name="quantity" value="1" />
                                 </div>
                                 <div class="pro-details-cart">
                                     <button class="add-cart" href="#"> Add To Cart</button>
@@ -107,7 +131,7 @@
                                 <a href="compare.html"><i class="pe-7s-refresh-2"></i></a>
                             </div>
                         </div>
-                        <div class="pro-details-sku-info pro-details-same-style  d-flex">
+                        <div class="pro-details-sku-info pro-details-same-style d-flex">
                             <span>SKU: </span>
                             <ul class="d-flex">
                                 <li>
@@ -566,6 +590,7 @@
 
 @section('footer_script')
     <script>
+        // Color $ size Ajax
         $('#color_list').change(function () {
             var color_id = $(this).val();
             var product_id = '{{ $product_singles->id}}'
@@ -579,7 +604,65 @@
                 url:'/getsize',
                 data:{product_id:product_id, color_id:color_id},
                 success:function (data) {
-                   $('#size_list').html(data);
+                    if(data.includes('>N/A<') == true) {
+                        $('#size_list').html(data.replace('<option value="">---- Select Size ----</option>', ''));
+                        var mainstr = data.replace('<option value="">---- Select Size ----</option>', '');
+                        var size_id = mainstr.split('"')[1];
+
+                        $.ajax({
+                            type:'POST',
+                            url:'/getquantity',
+                            data:{size_id:size_id, color_id:color_id},
+                            success:function (data) {
+                                $('#quantity').html(data);
+                            }
+                        })
+
+                    } else {
+                        $('#size_list').html(data);
+                    }
+                }
+            })
+        });
+
+
+        // Quantity Ajax
+        $('#size_list').change(function () {
+            var color_id = $('#color_list').val();
+            var size_id = $(this).val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type:'POST',
+                url:'/getquantity',
+                data:{size_id:size_id, color_id:color_id},
+                success:function (data) {
+                    $('#quantity').html(data);
+                }
+            })
+        });
+    </script>
+    <script>
+        // Quantity Increment & Decrement
+        $(function () {
+            $('.inc.qtybutton').click(function () {
+                var total_stock = $('#quantity').html();
+                var total = parseInt(total_stock);
+                var quantity = $('.quantity').val();
+                if (total <= quantity) {
+                    $('.inc.qtybutton').addClass('disable-plus-btn');
+                }
+            })
+
+            $('.dec.qtybutton').click(function () {
+                var total_stock = $('#quantity').html();
+                var total = parseInt(total_stock);
+                var quantity = $('.quantity').val();
+                if (total >= quantity) {
+                    $('.inc.qtybutton').removeClass('disable-plus-btn');
                 }
             })
         });

@@ -97,21 +97,13 @@
             <div class="col-md-4">
                 <div class="card card-secondary">
                     <div class="card-header">
-                        <h3 class="card-title">Add Color</h3>
+                        <h3 class="card-title">Add Size</h3>
                     </div>
                     <div class="card-body">
                         <form action="{{ url('/size/insert') }}" method="post">
                             @csrf
                             <div class="form-group">
-                                <select name="size_name" class="form-control">
-                                    <option value="">---- Select Size ----</option>
-                                    <option value="XS">XS</option>
-                                    <option value="S">S</option>
-                                    <option value="M">M</option>
-                                    <option value="L">L</option>
-                                    <option value="XL">XL</option>
-                                    <option value="XXL">XXL</option>
-                                </select>
+                                <input type="text" name="size_name" class="form-control" placeholder="Enter size">
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-outline-info">Add Size</button>

@@ -11,6 +11,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CouponController;
+use App\Http\Controllers\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,14 +31,24 @@ use App\Http\Controllers\CartController;
 
 Auth::routes();
 
+
+
+// Add User
+Route::get('/user', [UserController::class, 'user'])->name('user');
+Route::post('/insert/user', [UserController::class, 'InsertUser'])->name('insert_user');
+
+
 // Frontend
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('admincheck');
 Route::get('/', [FrontendController::class, 'welcome']);
 Route::get('/product/details/{product_id}', [FrontendController::class, 'ProductDetails'])->name('details');
 Route::post('/getsize', [FrontendController::class, 'getsize']);
+Route::post('/getquantity', [FrontendController::class, 'GetQuantity']);
+Route::get('/checkout', [FrontendController::class, 'Checkout'])->name('checkout');
+Route::get('/notfound', [FrontendController::class, 'NotFound'])->name('404');
+Route::get('/myaccount', [FrontendController::class, 'MyAccount'])->name('my_account');
 
 // Category
-Route::get('/user', [UserController::class, 'user'])->name('user');
 Route::get('/category', [CategoryController::class, 'index'])->name('index');
 Route::post('/category/insert', [CategoryController::class, 'insert']);
 Route::post('/category/delete/{category_id}', [CategoryController::class, 'delete']);
@@ -85,4 +97,18 @@ Route::post('/inventory/insert', [InventoryController::class, 'InventoryInsert']
 
 
 // Cart
-Route::post('add/to/cart', [CartController::class, 'AddToCart']);
+Route::post('/add/to/cart', [CartController::class, 'AddToCart']);
+Route::get('/cart/delete/{cart_id}', [CartController::class, 'CartDelete'])->name('cart.remove');
+Route::get('/cart/clear', [CartController::class, 'AllCartDelete'])->name('cart.clear');
+Route::get('/cart', [CartController::class, 'Cart'])->name('cart');
+Route::post('/cart/update', [CartController::class, 'CartUpdate'])->name('cart.update');
+Route::get('/cart/{coupon_code}', [CartController::class, 'Cart'])->name('cart');
+
+
+// Coupon
+Route::get('/coupon', [CouponController::class, 'Coupon'])->name('coupon');
+Route::post('/coupon/insert', [CouponController::class, 'CouponInsert'])->name('coupon.insert');
+
+
+// Checkout
+Route::post('/getCityList', [CheckoutController::class, 'GetCityList'])->name('GetCityList');

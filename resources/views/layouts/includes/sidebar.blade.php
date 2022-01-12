@@ -70,10 +70,17 @@
                         <p>User</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('coupon') }}" class="nav-link @yield('coupon')">
+                        <i class="nav-icon fas fa-users-cog"></i>
+                        <p>Coupon</p>
+                    </a>
+                </li>
+
 
                 <li class="nav-item @yield('tree_menu')">
                     <a href="#" class="nav-link  @yield('category') @yield('subcategory')">
-                        <i class="nav-icon fas fa-layer-group"></i>
+                        <i class="fas fa-folder nav-icon"></i>
                         <p>
                             Categories
                             <i class="fas fa-angle-left right"></i>
@@ -83,7 +90,7 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{url('/category')}}" class="nav-link @yield('category')">
-                                <i class="fas fa-angle-right nav-icon"></i>
+                                <i class="fas fa-folder-open nav-icon"></i>
                                 <p>
                                     Main Category
                                     {{-- <span class="badge badge-info right">{{ $total_category }}</span>--}}
@@ -92,7 +99,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{url('/subcategory')}}" class="nav-link @yield('subcategory')">
-                                <i class="fas fa-angle-right nav-icon"></i>
+                                <i class="fas fa-folder-open nav-icon"></i>
                                 <p>
                                     Sub-Category
 {{--                                    <span class="badge badge-danger right">{{ $total_subcategory }}</span>--}}
@@ -104,7 +111,7 @@
 
                 <li class="nav-item @yield('inventory_tree_menu')">
                     <a href="#" class="nav-link  @yield('color') @yield('size')">
-                        <i class="nav-icon fas fa-layer-group"></i>
+                        <i class="fas fa-folder nav-icon"></i>
                         <p>Inventory
                             <i class="fas fa-angle-left right"></i> <span class="badge badge-info right">2</span>
                         </p>
@@ -112,13 +119,13 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{url('/add/color')}}" class="nav-link @yield('color')">
-                                <i class="fas fa-angle-right nav-icon"></i>
+                                <i class="fas fa-folder-open nav-icon"></i>
                                 <p> Add Color </p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{url('/add/size')}}" class="nav-link @yield('size')">
-                                <i class="fas fa-angle-right nav-icon"></i>
+                                <i class="fas fa-folder-open nav-icon"></i>
                                 <p> Add Size</p>
                             </a>
                         </li>
@@ -126,25 +133,31 @@
                 </li>
 
                 <li class="nav-item @yield('tree_product_menu')">
-                    <a href="#" class="nav-link  @yield('productAdd') @yield('productManage')">
-                        <i class="nav-icon fas fa-layer-group"></i>
+                    <a href="#" class="nav-link  @yield('productAdd') @yield('productManage') @yield('inventory')">
+                        <i class="fas fa-folder nav-icon"></i>
                         <p>
                             Product
                             <i class="fas fa-angle-left right"></i>
-                            <span class="badge badge-info right">2</span>
+                            <span class="badge badge-info right">3</span>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{url('/product/add')}}" class="nav-link @yield('productAdd')">
-                                <i class="fas fa-angle-right nav-icon"></i>
+                                <i class="fas fa-folder-open nav-icon"></i>
                                 <p>Add Product</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{url('/product/all')}}" class="nav-link @yield('productManage')">
-                                <i class="fas fa-angle-right nav-icon"></i>
+                                <i class="fas fa-folder-open nav-icon"></i>
                                 <p>Manage Product</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link @yield('inventory')">
+                                <i class="fas fa-folder-open nav-icon"></i>
+                                <p>Inventory</p>
                             </a>
                         </li>
                     </ul>

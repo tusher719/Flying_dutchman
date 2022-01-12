@@ -262,7 +262,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Category Image</label>
-                                    <input type="file" name="category_image" class="form-control">
+{{--                                    <input type="file" name="category_image" class="form-control">--}}
+
+                                    <div class="custom-file">
+                                        <input type="file" name="category_image" class="custom-file-input" >
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+
                                     @error('category_image')
                                     <small class="btn text-danger text-sm mt-5">
                                         {{ $message }}
@@ -474,6 +480,13 @@
                 title: '{{ session('mark_delete') }}'
             })
         @endif
+
+
+
+
+        $(function () {
+            bsCustomFileInput.init();
+        });
 
 
     </script>

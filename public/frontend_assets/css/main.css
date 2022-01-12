@@ -25,3 +25,10 @@
     transition: 0.1s;
     z-index: 9999;
 }
+
+
+
+
+.disable-plus-btn{
+    pointer-events: none;
+}

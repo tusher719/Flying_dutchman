@@ -4,7 +4,7 @@
     Add-Inventory
 @endsection
 
-@section('productManage')
+@section('inventory')
     active
 @endsection
 @section('tree_product_menu')
@@ -31,7 +31,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <div class="card card-info">
                     <div class="card-header">
                         <h3 class="card-title">Color List</h3>
@@ -73,7 +73,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($inventorys as $index => $inventory)
+                            @foreach($inventorys as $index=> $inventory)
                                 <tr>
                                     <td>
                                         <div class="icheck-primary">
@@ -116,7 +116,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card card-secondary">
                     <div class="card-header">
                         <h3 class="card-title">Add Inventory</h3>
@@ -130,7 +130,7 @@
                             </div>
                             <div class="mb-3">
                                 <select name="color_id" class="form-control">
-                                    <option value=""> ---- Select Color ---- </option>
+                                    <option value=""> === Select Color === </option>
                                     @foreach($colors as $color)
                                         <option value="{{$color->id}}" style="background: #{{$color->color_code}}; text-transform: capitalize">
                                             {{ $color->color_name }}
@@ -140,7 +140,7 @@
                             </div>
                             <div class="mb-3">
                                 <select name="size_id" class="form-control">
-                                    <option value=""> ---- Select Size ---- </option>
+                                    <option value=""> === Select Size === </option>
                                     @foreach($sizes as $size)
                                     <option value="{{ $size->id }}">{{ $size->size_name }}</option>
                                     @endforeach

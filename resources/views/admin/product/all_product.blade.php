@@ -69,10 +69,8 @@
                                     <th>Code</th>
                                     <th>Regular Price</th>
                                     <th>Discount</th>
-                                    <th>Disc Price</th>
-                                    <th>Description</th>
+                                    <th>Discount Price</th>
                                     <th>Thumbnail</th>
-                                    <th>Created_at</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -106,11 +104,9 @@
                                                 <span class="text-danger"> N/A </span>
                                             @endif
                                         </td>
-                                        <td>{{ $products->product_desp }}</td>
                                         <td>
                                             <img width="80px" src="{{ asset('/uploads/product') }}/{{ $products->product_thumbnail }}" alt="">
                                         </td>
-                                        <td>{{ $products->created_at->diffForHumans() }}</td>
                                         <td>
                                             <a href="{{ url('/inventory/add') }}/{{ $products->id }}"
                                                class="btn btn-outline-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Inventory">
