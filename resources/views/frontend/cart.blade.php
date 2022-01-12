@@ -209,22 +209,27 @@
                                             echo $after_discount;
                                         @endphp
                                 </h5>
-                                <div class="total-shipping">
-                                    <h5>Delivery Charge</h5>
-                                    <ul>
-                                        <li><input type="radio" id="deliver1" name="delivery" value="60" /> Dhaka City <span>৳60.00</span></li>
-                                        <li><input type="radio" id="deliver2" name="delivery" value="100"/> Outsite Dhaka <span>৳100.00</span></li>
-                                    </ul>
-                                </div>
-                                <h4 class="grand-totall-title">Grand Total
-                                    <span id="grand_total">
-                                        @php
-                                            $after_discount = $total-(($total*$discount)/100);
-                                            echo $after_discount;
-                                        @endphp
-                                    </span>
-                                </h4>
-                                <a href="{{ route('checkout') }}">Proceed to Checkout</a>
+                                <form action="{{ route('checkout') }}" method="post">
+                                    @csrf
+                                    <div class="total-shipping">
+                                        <h5>Delivery Charge</h5>
+                                        <ul>
+                                            <li><input type="radio" id="deliver1" name="delivery" value="60" /> Dhaka City <span>৳60.00</span></li>
+                                            <li><input type="radio" id="deliver2" name="delivery" value="100"/> Outsite Dhaka <span>৳100.00</span></li>
+                                            <input type="hidden" value="{{ $discount }}" name="discount">
+                                            <input type="hidden" value="{{ $total-(($total*$discount)/100) }}" name="grand_total">
+                                        </ul>
+                                    </div>
+                                    <h4 class="grand-totall-title">Grand Total
+                                        <span id="grand_total">
+                                            @php
+                                                $after_discount = $total-(($total*$discount)/100);
+                                                echo $after_discount;
+                                            @endphp
+                                        </span>
+                                    </h4>
+                                    <button type="submit" class="btn btn-danger px-3 py-3">Proceed to Checkout</button>
+                                </form>
                             </div>
                         </div>
                     </div>

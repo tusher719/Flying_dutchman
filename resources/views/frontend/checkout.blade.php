@@ -101,22 +101,26 @@
                                     </div>
                                     <div class="your-order-middle">
                                         <ul>
-                                            <li><span class="order-middle-left">Product Name X 1</span> <span
-                                                    class="order-price">$100 </span></li>
-                                            <li><span class="order-middle-left">Product Name X 1</span> <span
-                                                    class="order-price">$100 </span></li>
+                                            @foreach($carts as $cart_product)
+                                            <li><span class="order-middle-left">{{ $cart_product->relation_to_products->product_name }} <span class="text-danger"> X {{ $cart_product->quantity }}</span></span> <span
+                                                    class="order-price">৳ {{ $cart_product->relation_to_products->discount_price * $cart_product->quantity}} </span></li>
+                                            @endforeach
                                         </ul>
                                     </div>
                                     <div class="your-order-bottom">
                                         <ul>
-                                            <li class="your-order-shipping">Shipping</li>
-                                            <li>Free shipping</li>
+                                            <li class="your-order-shipping">Discount</li>
+                                            <li>{{ $discount }}%</li>
+                                        </ul>
+                                        <ul>
+                                            <li class="your-order-shipping">Delivery</li>
+                                            <li>{{ $delivery }}</li>
                                         </ul>
                                     </div>
                                     <div class="your-order-total">
                                         <ul>
-                                            <li class="order-total">Total</li>
-                                            <li>$100</li>
+                                            <li class="order-total">Grand Total</li>
+                                            <li>৳ {{ $grand_total + $delivery }}</li>
                                         </ul>
                                     </div>
                                 </div>

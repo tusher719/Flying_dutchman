@@ -63,12 +63,18 @@ class FrontendController extends Controller
 
 
     // Checkout View
-    public function Checkout() {
+    public function Checkout(Request $request) {
+        $discount = $request->discount;
+        $delivery = $request->delivery;
+        $grand_total = $request->grand_total;
         $countries = Country::select('id', 'name')->get();
         $carts = Cart::where('user_id', Auth::id())->get();
         return view('frontend.checkout', [
             'countries' => $countries,
             'carts' => $carts,
+            'discount' => $discount,
+            'delivery' => $delivery,
+            'grand_total' => $grand_total,
         ]);
     }
 

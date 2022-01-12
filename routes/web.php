@@ -44,7 +44,7 @@ Route::get('/', [FrontendController::class, 'welcome']);
 Route::get('/product/details/{product_id}', [FrontendController::class, 'ProductDetails'])->name('details');
 Route::post('/getsize', [FrontendController::class, 'getsize']);
 Route::post('/getquantity', [FrontendController::class, 'GetQuantity']);
-Route::get('/checkout', [FrontendController::class, 'Checkout'])->name('checkout');
+Route::post('/checkout', [FrontendController::class, 'Checkout'])->name('checkout');
 Route::get('/notfound', [FrontendController::class, 'NotFound'])->name('404');
 Route::get('/myaccount', [FrontendController::class, 'MyAccount'])->name('my_account');
 

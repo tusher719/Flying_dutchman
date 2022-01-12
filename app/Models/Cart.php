@@ -9,4 +9,8 @@ class Cart extends Model
 {
     use HasFactory;
     protected $fillable = ['qunatity', 'color_id', 'size_id', ];
+
+    public function relation_to_products() {
+        return $this->hasOne(Product::class, 'id', 'product_id');
+    }
 }
