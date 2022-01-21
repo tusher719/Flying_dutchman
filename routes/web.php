@@ -112,3 +112,7 @@ Route::post('/coupon/insert', [CouponController::class, 'CouponInsert'])->name('
 
 // Checkout
 Route::post('/getCityList', [CheckoutController::class, 'GetCityList'])->name('GetCityList');
+
+
+// Order
+Route::post('/order', [CheckoutController::class, 'Order'])->name('order');

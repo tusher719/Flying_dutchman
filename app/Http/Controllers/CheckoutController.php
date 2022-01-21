@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\City;
 use App\Models\Country;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
@@ -19,5 +20,12 @@ class CheckoutController extends Controller
         }
         echo $str_to_send;
 
+    }
+
+    // Order Function
+    public function Order(Request $request) {
+        $request->validate([
+            'payment_method' => 'required',
+        ]);
     }
 }

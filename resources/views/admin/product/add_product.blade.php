@@ -19,7 +19,7 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{url('/home')}}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{url('/home')}}"><i class="fas fa-home"></i> Home</a></li>
                 <li class="breadcrumb-item active">Add-Product</li>
             </ol>
         </div><!-- /.col -->
@@ -87,13 +87,8 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="customFile">Main Thumbnail</label>
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" >
-                                            <label class="custom-file-label" for="customFile">Choose file</label>
-                                        </div>
-{{--                                        <label for="">Main Thumbnail</label>--}}
-{{--                                        <input type="file" name="product_thumbnail" class="form-control">--}}
+                                        <label for="">Main Thumbnail</label>
+                                        <input type="file" name="product_thumbnail" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-12">

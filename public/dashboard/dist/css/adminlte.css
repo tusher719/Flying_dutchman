@@ -13,7 +13,7 @@
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
-  --purple: #6f42c1;
+  --purple: #6f42c1;.dark-mode input:-webkit-autofill
   --pink: #e83e8c;
   --red: #dc3545;
   --orange: #fd7e14;
@@ -24063,7 +24063,7 @@ body.text-sm .input-group-text {
 .dark-mode select:-webkit-autofill,
 .dark-mode select:-webkit-autofill:hover,
 .dark-mode select:-webkit-autofill:focus {
-  -webkit-text-fill-color: #fff;
+  -webkit-text-fill-color: #6c757d;
 }
 
 .dark-mode .custom-range::-webkit-slider-runnable-track {

@@ -19,7 +19,7 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{url('/home')}}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{url('/home')}}"><i class="fas fa-home"></i> Home</a></li>
                 <li class="breadcrumb-item active">Manage-Product</li>
             </ol>
         </div><!-- /.col -->
