@@ -104,39 +104,75 @@
                                         <div class="your-order-middle">
                                             <ul>
                                                 @foreach($carts as $cart_product)
-                                                <li><span class="order-middle-left">{{ $cart_product->relation_to_products->product_name }} <span class="text-danger"> X {{ $cart_product->quantity }}</span></span> <span
-                                                        class="order-price">৳ {{ $cart_product->relation_to_products->discount_price * $cart_product->quantity}} </span></li>
+                                                <li>
+                                                    <span class="order-middle-left">{{ $cart_product->relation_to_products->product_name }}
+                                                        <span class="text-danger"> X {{ $cart_product->quantity }}</span>
+                                                    </span>
+                                                    <span
+                                                        class="order-price">৳ {{ $cart_product->relation_to_products->discount_price * $cart_product->quantity}}
+                                                    </span>
+                                                </li>
                                                 @endforeach
                                             </ul>
                                             <ul>
-                                                <li><strong class="text-danger">Sub-Total</strong> <span class="text-danger font-weight-bolder">৳ 00</span></li>
+                                                <li>
+                                                    <strong class="text-danger">Sub-Total</strong>
+                                                    <strong class="text-danger font-weight-bolder">৳ {{ session('sub_total') }}</strong>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="your-order-bottom">
                                             <ul>
                                                 <li class="your-order-shipping">Discount</li>
                                                 <li><input type="hidden" name="discount" value="{{ $discount }}"></li>
-                                                <li>{{ $discount }}%</li>
+                                                <li><strong class="text-danger">{{ session('discount') }}%</strong></li>
                                             </ul>
-                                            <ul>
-                                                <li class="your-order-shipping">Delivery</li>
-                                                <li><input type="hidden" name="delivery" value="{{ $delivery }}"></li>
-                                                <li>৳ {{ $delivery }}</li>
-                                            </ul>
+                                            <div class="total-shipping">
+                                                <h6 class="mt-3"><strong>Delivery Charge</strong></h6>
+                                                <ul class="">
+                                                    <li>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input px-0" type="radio" name="delivery_charge" id="deliver1" value="60">
+                                                            <label class="form-check-label" for="deliver1">
+                                                                Dhaka
+                                                            </label>
+                                                        </div>
+                                                    </li>
+                                                    <li>৳   60.00</li>
+                                                </ul>
+                                                <ul class="">
+                                                    <li>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input px-0" type="radio" name="delivery_charge" id="deliver2" value="100">
+                                                            <label class="form-check-label" for="deliver2">
+                                                                Outsite of Dhaka
+                                                            </label>
+                                                        </div>
+                                                    </li>
+                                                    <li>৳ 100.00</li>
+                                                </ul>
+                                            </div>
                                         </div>
                                         <div class="your-order-total">
                                             <ul>
+                                                <li class="order-total">Total</li>
+                                                <li><input id="total" type="hidden" name="total" value="{{ session('total') }}"></li>
+                                                <li>৳ <strong>{{ session('total') }}</strong></li>
+                                            </ul>
+                                            <ul class="mt-5">
                                                 <li class="order-total">Grand Total</li>
-                                                <li><input type="hidden" name="grand_total" value="{{ $grand_total + $delivery }}"></li>
-                                                <li>৳ {{ $grand_total + $delivery }}</li>
+                                                <li><input type="hidden" value="{{ session('total') }}"></li>
+                                                <li>৳ <strong id="grand_total">{{ session('total') }}</strong></li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="payment-method">
                                         <div class="payment-accordion element-mrg">
                                             <h5 class="mb-3">Select Delivary Method</h5>
-                                            @error('payment')
-                                                {{ $message }}
+                                            @error('payment_method')
+                                                <div class="alert alert-danger">
+                                                    {{ $message }}
+                                                </div>
                                             @enderror
                                             <div class="form-check">
                                                 <input class="form-check-input px-0" type="radio" name="payment_method" id="flexRadioDefault1" value="1">
@@ -212,5 +248,24 @@
             })
 
         });
+    </script>
+
+    <Script>
+        // Delivery Click fucntion
+        $('#deliver1').click(function () {
+            var total = parseInt($('#total').val());
+            var delivery_charge = parseInt($('#deliver1').val());
+            var grand_total =total+delivery_charge;
+            $('#grand_total').html(grand_total);
+        });
+
+        $('#deliver2').click(function () {
+            var total = parseInt($('#total').val());
+            var delivery_charge = parseInt($('#deliver2').val());
+            var grand_total =total+delivery_charge;
+            $('#grand_total').html(grand_total);
+        });
+
+
     </script>
 @endsection

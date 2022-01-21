@@ -27,5 +27,6 @@ class CheckoutController extends Controller
         $request->validate([
             'payment_method' => 'required',
         ]);
+        print_r($request->all());
     }
 }
