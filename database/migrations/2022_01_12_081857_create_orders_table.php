@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('sub_total');
-            $table->integer('total');
+            $table->integer('grand_total');
             $table->integer('discount');
             $table->integer('delivery_charge');
             $table->integer('payment_method');

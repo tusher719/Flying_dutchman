@@ -89,7 +89,7 @@
                                         <td>{{ App\Models\SubCategory::find($products->subcategory_id)->subcategory_name }}</td>
                                         <td>{{ $products->product_name }}</td>
                                         <td>{{ $products->product_code }}</td>
-                                        <td>{{ $products->product_price }}</td>
+                                        <td>{{ number_format($products->product_price) }}</td>
                                         <td>
                                             @if( $products->discount_percentage )
                                                 {{ $products->discount_percentage }}%
@@ -99,7 +99,7 @@
                                         </td>
                                         <td>
                                             @if( $products->discount_percentage )
-                                                {{ $products->discount_price }}
+                                                {{ number_format($products->discount_price) }}
                                             @else
                                                 <span class="text-danger"> N/A </span>
                                             @endif

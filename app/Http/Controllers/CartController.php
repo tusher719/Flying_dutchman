@@ -43,7 +43,7 @@ class CartController extends Controller
     // Cart Page View
     public function Cart($coupon_code = ''){
         if ($coupon_code == '') {
-            echo $discount = 0;
+            $discount = 0;
         }
         else {
             if (Coupon::where('coupon_name', $coupon_code)->exists()){

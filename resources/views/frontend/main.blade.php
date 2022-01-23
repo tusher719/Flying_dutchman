@@ -244,16 +244,16 @@
                                 {{ $cart->quantity }} x
                                 <span class="amount fw-bold">
                                     @if(App\Models\Product::find($cart->product_id)->discount_percentage)
-                                        ৳ {{ App\Models\Product::find($cart->product_id)->discount_price }}
+                                        ৳ {{ number_format(App\Models\Product::find($cart->product_id)->discount_price) }}
                                     @else
-                                        ৳ {{ App\Models\Product::find($cart->product_id)->product_price }}
+                                        ৳ {{ number_format(App\Models\Product::find($cart->product_id)->product_price) }}
                                     @endif
                                 </span>
                             </span>
                             <del class="text-gray" style="font-style: 13px; font-style: italic">
                                 @if(App\Models\Product::find($cart->product_id)->discount_percentage)
                                     <span class="old text-cyan">
-                                        ৳ {{ App\Models\Product::find($cart->product_id)->product_price }}
+                                        ৳ {{ number_format(App\Models\Product::find($cart->product_id)->product_price) }}
                                     </span>
                                 @endif
                             </del>

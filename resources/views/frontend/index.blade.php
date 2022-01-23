@@ -180,14 +180,14 @@
                                                 <span class="price">
                                                     <span class="new">
                                                         @if($product->discount_percentage)
-                                                            ৳ {{ $product->discount_price }}
+                                                            ৳ {{ number_format($product->discount_price) }}
                                                         @else()
-                                                            ৳ {{ $product->product_price }}
+                                                            ৳ {{ number_format($product->product_price) }}
                                                         @endif
 
                                                         @if($product->discount_percentage)
                                                                 <span class="old">
-                                                                    ৳ {{ $product->product_price }}
+                                                                    ৳ {{ number_format($product->product_price) }}
                                                                 </span>
                                                             @endif
                                                     </span>
@@ -231,9 +231,9 @@
                                                                     <ul>
                                                                         <li class="old-price not-cut">
                                                                             @if($product->discount_percentage)
-                                                                                ৳ {{ $product->discount_price }}
+                                                                                ৳ {{ number_format($product->discount_price) }}
                                                                             @else()
-                                                                                ৳ {{ $product->product_price }}
+                                                                                ৳ {{ number_format($product->product_price) }}
                                                                             @endif
                                                                         </li>
                                                                     </ul>
@@ -358,14 +358,14 @@
                                                     <span class="price">
                                                         <span class="new">
                                                             @if($product->discount_percentage)
-                                                                ${{ $product->discount_price }}
+                                                                ৳ {{ number_format($product->discount_price) }}
                                                             @else()
-                                                                ${{ $product->product_price }}
+                                                                ৳ {{ number_format($product->product_price) }}
                                                             @endif
 
                                                             @if($product->discount_percentage)
                                                                 <span class="old">
-                                                                    ${{ $product->product_price }}
+                                                                    ৳ {{ number_format($product->product_price) }}
                                                                 </span>
                                                             @endif
                                                         </span>
@@ -412,9 +412,9 @@
                                                                         <ul>
                                                                             <li class="old-price not-cut">
                                                                                 @if($product->discount_percentage)
-                                                                                    BDT {{ $product->discount_price }}
+                                                                                    ৳ {{ number_format($product->discount_price) }}
                                                                                 @else()
-                                                                                    BDT {{ $product->product_price }}
+                                                                                    ৳ {{ number_format($product->discount_price) }}
                                                                                 @endif
                                                                             </li>
                                                                         </ul>

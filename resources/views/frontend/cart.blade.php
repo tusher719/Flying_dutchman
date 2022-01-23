@@ -54,16 +54,16 @@
                                         <td class="product-price-cart">
                                             <span class="amount fw-bold">
                                                 @if(App\Models\Product::find($cart->product_id)->discount_percentage)
-                                                    ৳ {{ App\Models\Product::find($cart->product_id)->discount_price }}
+                                                    ৳ {{ number_format(App\Models\Product::find($cart->product_id)->discount_price) }}
                                                 @else
-                                                    ৳ {{ App\Models\Product::find($cart->product_id)->product_price }}
+                                                    ৳ {{ number_format(App\Models\Product::find($cart->product_id)->product_price) }}
                                                 @endif
                                             </span>
                                             <br>
                                             <del class="text-gray-dark" style="font-size: 13px; font-style: italic">
                                                 @if(App\Models\Product::find($cart->product_id)->discount_percentage)
                                                     <span class="old text-cyan">
-                                                        ৳ {{ App\Models\Product::find($cart->product_id)->product_price }}
+                                                        ৳ {{ number_format(App\Models\Product::find($cart->product_id)->product_price) }}
                                                     </span>
                                                 @endif
                                             </del>
@@ -89,9 +89,9 @@
                                         </td>
                                         <td class="product-subtotal">
                                             @if(App\Models\Product::find($cart->product_id)->discount_percentage)
-                                                ৳ {{ App\Models\Product::find($cart->product_id)->discount_price * $cart->quantity }}
+                                                ৳ {{ number_format(App\Models\Product::find($cart->product_id)->discount_price * $cart->quantity) }}
                                             @else
-                                                ৳ {{ App\Models\Product::find($cart->product_id)->product_price * $cart->quantity }}
+                                                ৳ {{ number_format(App\Models\Product::find($cart->product_id)->product_price * $cart->quantity) }}
                                             @endif
                                         </td>
                                         <td class="product-remove">
@@ -201,7 +201,7 @@
                                 <div class="title-wrap">
                                     <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
                                 </div>
-                                <h5>Total Price <span>৳ {{ $total }}</span></h5>
+                                <h5>Total Price <span>৳ {{ number_format("$total",2) }}</span></h5>
                                 <h5>Discount <span>{{ $discount }}%</span></h5>
                                 <h5 id="total" class="d-none">
                                         @php
@@ -210,10 +210,10 @@
                                         @endphp
                                 </h5>
                                 <h4 class="grand-totall-title">Grand Total
-                                    <span id="grand_total">
+                                    <span id="grand_total">৳
                                         @php
                                             $after_discount = $total-(($total*$discount)/100);
-                                            echo $after_discount;
+                                            echo number_format("$after_discount",2);
                                             session([
                                                 'discount' => $discount,
                                                 'sub_total' => $total,

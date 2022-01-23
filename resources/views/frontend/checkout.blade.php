@@ -22,6 +22,11 @@
         <!-- checkout area start -->
         <div class="checkout-area pt-100px pb-100px">
             <div class="container">
+                @if(session('order'))
+                    <div class="alert alert-success">
+                        {{ session('order') }}
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-lg-7">
                         <div class="billing-info-wrap">
@@ -32,13 +37,13 @@
                                     <div class="col-lg-6 col-md-6">
                                         <div class="billing-info mb-4">
                                             <label>Name</label>
-                                            <input type="text" value="{{ Auth::user()->name }}"/>
+                                            <input type="text" name="name" value="{{ Auth::user()->name }}"/>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <div class="billing-info mb-4">
                                             <label>Email Address</label>
-                                            <input type="email" value="{{ Auth::user()->email }}"/>
+                                            <input type="email" name="email" value="{{ Auth::user()->email }}"/>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
@@ -87,7 +92,6 @@
                                                   name="message"></textarea>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                         <div class="col-lg-5 mt-md-30px mt-lm-30px ">
@@ -105,11 +109,11 @@
                                             <ul>
                                                 @foreach($carts as $cart_product)
                                                 <li>
-                                                    <span class="order-middle-left">{{ $cart_product->relation_to_products->product_name }}
+                                                    <span class="order-middle-left" style="width: 80%">{{ $cart_product->relation_to_products->product_name }}
                                                         <span class="text-danger"> X {{ $cart_product->quantity }}</span>
                                                     </span>
                                                     <span
-                                                        class="order-price">৳ {{ $cart_product->relation_to_products->discount_price * $cart_product->quantity}}
+                                                        class="order-price">৳ {{ number_format($cart_product->relation_to_products->discount_price * $cart_product->quantity) }}
                                                     </span>
                                                 </li>
                                                 @endforeach
@@ -117,14 +121,15 @@
                                             <ul>
                                                 <li>
                                                     <strong class="text-danger">Sub-Total</strong>
-                                                    <strong class="text-danger font-weight-bolder">৳ {{ session('sub_total') }}</strong>
+                                                    <span><input type="hidden" name="sub_total" value="{{ session('sub_total') }}"></span>
+                                                    <strong class="text-danger font-weight-bolder">৳ {{ number_format(session('sub_total')) }}</strong>
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="your-order-bottom">
                                             <ul>
                                                 <li class="your-order-shipping">Discount</li>
-                                                <li><input type="hidden" name="discount" value="{{ $discount }}"></li>
+                                                <li><input type="hidden" name="discount" value="{{ session('discount') }}"></li>
                                                 <li><strong class="text-danger">{{ session('discount') }}%</strong></li>
                                             </ul>
                                             <div class="total-shipping">
@@ -138,7 +143,7 @@
                                                             </label>
                                                         </div>
                                                     </li>
-                                                    <li>৳   60.00</li>
+                                                    <li>৳ {{ number_format("60",2) }}</li>
                                                 </ul>
                                                 <ul class="">
                                                     <li>
@@ -149,7 +154,7 @@
                                                             </label>
                                                         </div>
                                                     </li>
-                                                    <li>৳ 100.00</li>
+                                                    <li>৳ {{ number_format("100",2) }}</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -157,12 +162,12 @@
                                             <ul>
                                                 <li class="order-total">Total</li>
                                                 <li><input id="total" type="hidden" name="total" value="{{ session('total') }}"></li>
-                                                <li>৳ <strong>{{ session('total') }}</strong></li>
+                                                <li>৳ <strong>{{ number_format(session('total'),2) }}</strong></li>
                                             </ul>
                                             <ul class="mt-5">
                                                 <li class="order-total">Grand Total</li>
-                                                <li><input type="hidden" value="{{ session('total') }}"></li>
-                                                <li>৳ <strong id="grand_total">{{ session('total') }}</strong></li>
+                                                <li><input type="hidden" name="grand_total" value="{{ session('total') }}"></li>
+                                                <li>৳ <strong id="grand_total">{{ number_format(session('total'),2) }}</strong></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -253,16 +258,16 @@
     <Script>
         // Delivery Click fucntion
         $('#deliver1').click(function () {
-            var total = parseInt($('#total').val());
+            var grand_total = parseInt($('#total').val());
             var delivery_charge = parseInt($('#deliver1').val());
-            var grand_total =total+delivery_charge;
+            var grand_total =grand_total+delivery_charge;
             $('#grand_total').html(grand_total);
         });
 
         $('#deliver2').click(function () {
-            var total = parseInt($('#total').val());
+            var grand_total = parseInt($('#total').val());
             var delivery_charge = parseInt($('#deliver2').val());
-            var grand_total =total+delivery_charge;
+            var grand_total =grand_total+delivery_charge;
             $('#grand_total').html(grand_total);
         });
 
