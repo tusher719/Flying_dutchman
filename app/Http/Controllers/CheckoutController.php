@@ -88,6 +88,9 @@ class CheckoutController extends Controller
         elseif ($request->payment_method == 2) {
             return redirect()->route('SSLCommerz');
         }
+        else {
+            return redirect()->route('stripe');
+        }
 
         return back();
     }
