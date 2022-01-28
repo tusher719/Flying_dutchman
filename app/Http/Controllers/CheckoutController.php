@@ -82,8 +82,18 @@ class CheckoutController extends Controller
                 Inventory::where('product_id', $cart->product_id)->where('color_id', $cart->color_id)->where('size_id', $cart->size_id)->decrement('quantity', $cart->quantity);
             }
             Cart::where('user_id', Auth::id())->delete();
+
+            return redirect()->route('OrderConfirm');
+        }
+        elseif ($request->payment_method == 2) {
+            return redirect()->route('SSLCommerz');
         }
 
-        return back()->with('order', 'Your Order Update Database');
+        return back();
+    }
+
+    // Order Confirm
+    public function OrderConfirm() {
+        return view('frontend.confirm');
     }
 }

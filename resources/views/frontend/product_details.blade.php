@@ -18,7 +18,6 @@
             </div>
         </div>
     </div>
-
     <!-- breadcrumb-area end -->
     <!-- Product Details Area Start -->
     <div class="product-details-area pt-100px pb-100px">
@@ -53,9 +52,9 @@
                             <ul>
                                 <li class="old-price cut">
                                     @if($product_singles->discount_percentage)
-                                        ৳ {{ $product_singles->discount_price }}
+                                        ৳ {{ number_format($product_singles->discount_price ) }}
                                     @else()
-                                        ৳ {{ $product_singles->product_price }}
+                                        ৳ {{ number_format($product_singles->product_price) }}
                                     @endif
                                 </li>
                             </ul>
@@ -64,7 +63,7 @@
                             <span class="text-gray">
                                 <del>
                                     @if($product_singles->discount_percentage)
-                                        ৳ {{ $product_singles->product_price }}
+                                        ৳ {{ number_format($product_singles->product_price) }}
                                     @endif
                                 </del>
                             </span>

@@ -49,13 +49,13 @@
                                     <div class="col-lg-6 col-md-6">
                                         <div class="billing-info mb-4">
                                             <label>Phone</label>
-                                            <input name="phone" type="text" />
+                                            <input name="phone" type="text" required/>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <div class="billing-info mb-4">
                                             <label>Postcode / ZIP</label>
-                                            <input name="zip" type="text" />
+                                            <input name="zip" type="text" required/>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -81,7 +81,7 @@
                                     <div class="col-lg-12">
                                         <div class="billing-info mb-4">
                                             <label>Address</label>
-                                            <input name="address" placeholder="Apartment, suite, unit etc." type="text" />
+                                            <input name="address" placeholder="Apartment, suite, unit etc." type="text" required/>
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@
                                     <div class="additional-info">
                                         <label>Order notes</label>
                                         <textarea placeholder="Notes about your order, e.g. special notes for delivery. "
-                                                  name="message"></textarea>
+                                                  name="message" required></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -167,7 +167,7 @@
                                             <ul class="mt-5">
                                                 <li class="order-total">Grand Total</li>
                                                 <li><input type="hidden" name="grand_total" value="{{ session('total') }}"></li>
-                                                <li>৳ <strong id="grand_total">{{ number_format(session('total'),2) }}</strong></li>
+                                                <li>৳ <strong id="grand_total">{{ session('total') }}</strong></li>
                                             </ul>
                                         </div>
                                     </div>

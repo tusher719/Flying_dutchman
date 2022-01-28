@@ -13,6 +13,7 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\SslCommerzPaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -116,3 +117,20 @@ Route::post('/getCityList', [CheckoutController::class, 'GetCityList'])->name('G
 
 // Order
 Route::post('/order', [CheckoutController::class, 'Order'])->name('order');
+Route::get('/order/confirmed', [CheckoutController::class, 'OrderConfirm'])->name('OrderConfirm');
+
+
+
+// SSLCOMMERZ Start
+//Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+Route::get('/sslcommerz', [SslCommerzPaymentController::class, 'SSLCommerz'])->name('SSLCommerz');
+
+Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END

@@ -17,7 +17,6 @@
             </div>
         </div>
     </div>
-
     <!-- breadcrumb-area end -->
 
     <!-- account area start -->

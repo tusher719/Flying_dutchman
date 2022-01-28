@@ -91,7 +91,7 @@
                                             <td>{{ $loop->index+1 }}</td>
                                             <td>{{ $coupon->coupon_name }}</td>
                                             <td>{{ $coupon->discount }}</td>
-                                            <td>{{ $coupon->validity }}</td>
+                                            <td>{{ date('d-M-Y', strtotime($coupon->validity)) }}</td>
 
                                             <td>{{ $coupon->created_at->diffForHumans() }}</td>
                                             <td>
@@ -126,6 +126,7 @@
                                 <label>Coupon Name</label>
                                 <input type="text" name="coupon_name" class="form-control" placeholder="Enter coupon name">
 
+
                                 @error('coupon_name')
                                 <small class="btn text-danger text-sm mt-5">
                                     {{ $message }}
@@ -135,7 +136,7 @@
                             <div class="input-group mt-2">
                                 <label>Discount %</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" name="discount" class="form-control" placeholder="Enter discount">
+                                    <input type="text" name="discount" class="form-control" placeholder="Enter percentage">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fas fa-percent"></i></span>
                                     </div>
@@ -201,5 +202,16 @@
         $('#reservationdate').datetimepicker({
             format: 'MM/DD/YYYY'
         });
+
+        $(function () {
+            $('#date_picker').datepicker({
+                format: 'Y-MM-DD h:m:s',
+                background: 'red',
+            })
+            .on('dp.change',function (ev) {
+
+            });
+        });
+
     </script>
 @endsection
