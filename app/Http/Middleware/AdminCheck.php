@@ -17,10 +17,10 @@ class AdminCheck
      */
     public function handle(Request $request, Closure $next)
     {
-//        if (Auth::user()->role == 0) {
-//            // abort(404);
-//            return redirect()->route('404');
-//        }
+        if (Auth::user()->role == 0) {
+            // abort(404);
+            return redirect()->route('404');
+        }
 
         return $next($request);
     }

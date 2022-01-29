@@ -12,6 +12,10 @@ use Stripe;
 
 class StripePaymentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * success response method.
      *
@@ -51,7 +55,6 @@ class StripePaymentController extends Controller
         }
 
 //        Session::flash('success', 'Payment successful!');
-//
 //        return back();
     }
 }
