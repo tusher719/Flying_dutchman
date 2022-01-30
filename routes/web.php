@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\InvoiceControlelr;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CheckoutController;
@@ -139,3 +140,7 @@ Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 // Stripe
 Route::get('stripe', [StripePaymentController::class, 'stripe'])->name('stripe');
 Route::post('stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
+
+
+// Invoice
+Route::get('/invoice/download/{order_id}', [InvoiceControlelr::class, 'InvoiceDownload'])->name('Invoice.Download');

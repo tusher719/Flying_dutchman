@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Inventory;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Size;
 use Illuminate\Http\Request;
@@ -86,8 +87,10 @@ class FrontendController extends Controller
     // My Account View
     public function MyAccount() {
         $user_info = Auth::user();
+        $my_orders = Order::where('user_id', Auth::id())->get();
         return view('frontend.myaccount', [
             'user_info' => $user_info,
+            'my_orders' => $my_orders,
         ]);
     }
 
