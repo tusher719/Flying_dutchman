@@ -13,6 +13,8 @@ use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Mail;
+use App\Mail\SendInvoice;
 
 class CheckoutController extends Controller
 {
@@ -81,6 +83,9 @@ class CheckoutController extends Controller
             foreach ($cart_items as $cart) {
                 Inventory::where('product_id', $cart->product_id)->where('color_id', $cart->color_id)->where('size_id', $cart->size_id)->decrement('quantity', $cart->quantity);
             }
+            $order_info = Order::where('id', $order_id)->get();
+            Mail::to(Auth::user()->email)->send(new SendInvoice($order_info));
+
             Cart::where('user_id', Auth::id())->delete();
 
             return redirect()->route('OrderConfirm');

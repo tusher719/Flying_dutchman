@@ -36,15 +36,15 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav m-auto">
-                        @auth()
-                        <li class="nav-item"><a href="{{ url('/home') }}" class="nav-link">Home</a></li>
-                        <li class="nav-item"><a href="{{ url('/user') }}" class="nav-link">Users</a>
-                        <li class="nav-item"><a href="{{ url('/category') }}" class="nav-link">Category</a>
-                        <li class="nav-item"><a href="{{ url('/subcategory') }}" class="nav-link">Subcategory</a>
-                        </li>
-                        @endauth
-                    </ul>
+{{--                    <ul class="navbar-nav m-auto">--}}
+{{--                        @auth()--}}
+{{--                        <li class="nav-item"><a href="{{ url('/home') }}" class="nav-link">Home</a></li>--}}
+{{--                        <li class="nav-item"><a href="{{ url('/user') }}" class="nav-link">Users</a>--}}
+{{--                        <li class="nav-item"><a href="{{ url('/category') }}" class="nav-link">Category</a>--}}
+{{--                        <li class="nav-item"><a href="{{ url('/subcategory') }}" class="nav-link">Subcategory</a>--}}
+{{--                        </li>--}}
+{{--                        @endauth--}}
+{{--                    </ul>--}}
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">

@@ -16,6 +16,8 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Http\Controllers\StripePaymentController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +44,7 @@ Route::post('/insert/user', [UserController::class, 'InsertUser'])->name('insert
 
 
 // Frontend
-Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('admincheck');
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified');
 Route::get('/', [FrontendController::class, 'welcome']);
 Route::get('/product/details/{product_id}', [FrontendController::class, 'ProductDetails'])->name('details');
 Route::post('/getsize', [FrontendController::class, 'getsize']);
@@ -144,3 +146,23 @@ Route::post('stripe', [StripePaymentController::class, 'stripePost'])->name('str
 
 // Invoice
 Route::get('/invoice/download/{order_id}', [InvoiceControlelr::class, 'InvoiceDownload'])->name('Invoice.Download');
+
+
+// The Email Verification Notice
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+//The Email Verification Handler
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+//Resending The Verification Email
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
