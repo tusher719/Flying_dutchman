@@ -44,7 +44,7 @@ Route::post('/insert/user', [UserController::class, 'InsertUser'])->name('insert
 
 
 // Frontend
-Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified');
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified', 'admincheck');
 Route::get('/', [FrontendController::class, 'welcome']);
 Route::get('/product/details/{product_id}', [FrontendController::class, 'ProductDetails'])->name('details');
 Route::post('/getsize', [FrontendController::class, 'getsize']);
@@ -52,6 +52,11 @@ Route::post('/getquantity', [FrontendController::class, 'GetQuantity']);
 Route::get('/checkout', [FrontendController::class, 'Checkout'])->name('checkout')->middleware('auth');
 Route::get('/notfound', [FrontendController::class, 'NotFound'])->name('404');
 Route::get('/myaccount', [FrontendController::class, 'MyAccount'])->name('my_account')->middleware('auth');
+
+// Register Verified
+Route::group(['middleware' => ['verified']], function () {
+    Route::get('/myaccount', [FrontendController::class, 'MyAccount'])->name('my_account');
+});
 
 // Category
 Route::get('/category', [CategoryController::class, 'index'])->name('index');

@@ -32,18 +32,19 @@
 
                     <div class="card card-success card-outline">
                         <div class="card-header">
-                                <h4 class="card-title">Welcome, <span class="badge badge-warning">{{ Auth::user()->name }}</span> <i class="fas fa-angle-double-right"></i>
-                                    <span>
-                                        @if(Auth::user()->role == 1)
-                                            <span class="badge badge-success">Admin</span>
-                                        @elseif(Auth::user()->role == 2)
-                                            <span class="badge badge-primary">Moderator</span>
-                                        @elseif(Auth::user()->role == 3)
-                                            <span class="badge badge-info">Shopkeeper</span>
-                                        @else
-                                            <span class="badge badge-secondary">User</span>
-                                        @endif
-                                    </span>
+                                <h4 class="card-title">Welcome, <span class="badge badge-warning">{{ Auth::user()->name }}</span>
+{{--                                    <i class="fas fa-angle-double-right"></i>--}}
+{{--                                    <span>--}}
+{{--                                        @if(Auth::user()->role == 1)--}}
+{{--                                            <span class="badge badge-success">Admin</span>--}}
+{{--                                        @elseif(Auth::user()->role == 2)--}}
+{{--                                            <span class="badge badge-primary">Moderator</span>--}}
+{{--                                        @elseif(Auth::user()->role == 3)--}}
+{{--                                            <span class="badge badge-info">Shopkeeper</span>--}}
+{{--                                        @else--}}
+{{--                                            <span class="badge badge-secondary">User</span>--}}
+{{--                                        @endif--}}
+{{--                                    </span>--}}
                                 </h4>
                         </div>
                         <!-- /.card-header -->

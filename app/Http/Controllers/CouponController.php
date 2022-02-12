@@ -11,13 +11,13 @@ class CouponController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('admincheck');
+        $this->middleware(['auth', 'admincheck', 'verified']);
     }
 
     // view
     public function Coupon(){
-        $coupons = Coupon::all();
+//        $coupons = Coupon::all();
+        $coupons = Coupon::orderBy('validity')->get();
         return view('admin.coupon.index', [
             'coupons' => $coupons,
         ]);

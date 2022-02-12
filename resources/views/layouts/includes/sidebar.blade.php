@@ -9,13 +9,24 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center">
             <div class="image">
                 <img style="height: 34px; width: 34px; object-fit: cover;" src="{{ asset('uploads/users') }}/{{ Auth::user()->user_photo }}" class="img-circle elevation-2"
                      alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                <a href="#" class="d-block text-bold">{{ Auth::user()->name }}</a>
+                <p class="text-gray" style="margin: 0;">
+                    @if(Auth::user()->role == 1)
+                        <span class="">Admin</span>
+                    @elseif(Auth::user()->role == 2)
+                        <span class="">Moderator</span>
+                    @elseif(Auth::user()->role == 3)
+                        <span class="">Shopkeeper</span>
+                    @else
+                        <span class="">User</span>
+                    @endif
+                </p>
             </div>
         </div>
 
